@@ -22,9 +22,9 @@ const HEADS = {
   "Water Aim Up": [3, 14, -45], "Water Aim Up 2": [3, 14, -45], "Water Shooting Up 1": [3, 14, -45],
 };
 
-export function characterSprite(id, sprite, alternate = false) {
+export function characterSprite(id, sprite) {
   if (!sprite || id === "commando") return sprite;
-  return `character:${id}:${alternate ? "alt:" : ""}${sprite}`;
+  return `character:${id}:${sprite}`;
 }
 
 function drawHeadgear(ctx, anchor, costume) {
@@ -59,41 +59,39 @@ export async function loadCharacters() {
     }
   }
   for (const { id } of CHARACTERS.slice(1)) {
-    for (const alternate of [false, true]) {
-      const atlas = document.createElement("canvas");
-      atlas.width = 512; atlas.height = Math.ceil(frames.size / 8) * 48;
-      const ctx = atlas.getContext("2d");
-      ctx.imageSmoothingEnabled = false;
-      let index = 0;
-      for (const frame of frames) {
-        const s = assets.sprites[frame];
-        const x = index % 8 * 64 + 4, y = Math.floor(index / 8) * 48 + 4;
-        ctx.drawImage(assets.images[s.tex], s.x, s.y, s.w, s.h, x, y, s.w, s.h);
-        const pixels = ctx.getImageData(x, y, s.w, s.h), data = pixels.data, costume = costumes[id];
-        for (let i = 0; i < data.length; i += 4) {
-          if (!data[i + 3]) continue;
-          let color;
-          if (data[i] === 32 && data[i + 1] === 56 && data[i + 2] === 236) color = alternate ? costume.trim : costume.pants;
-          else if (data[i] === 252 && data[i + 1] === 216 && data[i + 2] === 168) color = alternate ? costume.pants : costume.trim;
-          else if (data[i] === 216 && data[i + 1] === 40 && data[i + 2] === 0) color = costume.shade;
-          else if (data[i] === 252 && data[i + 1] === 188 && data[i + 2] === 176) color = costume.skin;
-          if (color) data.set(color, i);
-        }
-        ctx.putImageData(pixels, x, y);
-        // Draw on integer sprite pixels so rotations do not introduce antialiasing.
-        const gear = document.createElement("canvas"); gear.width = s.w; gear.height = s.h;
-        const gearCtx = gear.getContext("2d");
-        drawHeadgear(gearCtx, HEADS[frame], costume);
-        const gearPixels = gearCtx.getImageData(0, 0, s.w, s.h);
-        for (let i = 0; i < gearPixels.data.length; i += 4) gearPixels.data[i + 3] = gearPixels.data[i + 3] > 127 ? 255 : 0;
-        gearCtx.putImageData(gearPixels, 0, 0);
-        ctx.drawImage(gear, x, y);
-        const key = characterSprite(id, frame, alternate);
-        const texture = `character:${id}:${alternate}`;
-        assets.sprites[key] = { ...s, x, y, tex: texture };
-        assets.images[texture] = atlas;
-        index++;
+    const atlas = document.createElement("canvas");
+    atlas.width = 512; atlas.height = Math.ceil(frames.size / 8) * 48;
+    const ctx = atlas.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
+    let index = 0;
+    for (const frame of frames) {
+      const s = assets.sprites[frame];
+      const x = index % 8 * 64 + 4, y = Math.floor(index / 8) * 48 + 4;
+      ctx.drawImage(assets.images[s.tex], s.x, s.y, s.w, s.h, x, y, s.w, s.h);
+      const pixels = ctx.getImageData(x, y, s.w, s.h), data = pixels.data, costume = costumes[id];
+      for (let i = 0; i < data.length; i += 4) {
+        if (!data[i + 3]) continue;
+        let color;
+        if (data[i] === 32 && data[i + 1] === 56 && data[i + 2] === 236) color = costume.pants;
+        else if (data[i] === 252 && data[i + 1] === 216 && data[i + 2] === 168) color = costume.trim;
+        else if (data[i] === 216 && data[i + 1] === 40 && data[i + 2] === 0) color = costume.shade;
+        else if (data[i] === 252 && data[i + 1] === 188 && data[i + 2] === 176) color = costume.skin;
+        if (color) data.set(color, i);
       }
+      ctx.putImageData(pixels, x, y);
+      // Draw on integer sprite pixels so rotations do not introduce antialiasing.
+      const gear = document.createElement("canvas"); gear.width = s.w; gear.height = s.h;
+      const gearCtx = gear.getContext("2d");
+      drawHeadgear(gearCtx, HEADS[frame], costume);
+      const gearPixels = gearCtx.getImageData(0, 0, s.w, s.h);
+      for (let i = 0; i < gearPixels.data.length; i += 4) gearPixels.data[i + 3] = gearPixels.data[i + 3] > 127 ? 255 : 0;
+      gearCtx.putImageData(gearPixels, 0, 0);
+      ctx.drawImage(gear, x, y);
+      const key = characterSprite(id, frame);
+      const texture = `character:${id}`;
+      assets.sprites[key] = { ...s, x, y, tex: texture };
+      assets.images[texture] = atlas;
+      index++;
     }
   }
 }

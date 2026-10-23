@@ -5,7 +5,7 @@ import { prefab, comp, child } from "./assets.js";
 import { Animator } from "./anim.js";
 import { Body } from "./physics.js";
 import { overlapGround, LAYER } from "./world.js";
-import { drawSprite, camera, HALF_H, getCtx } from "./render.js";
+import { drawSprite, camera, HALF_H } from "./render.js";
 import { Hitbox } from "./combat.js";
 import { Shooter, spawnPlayerBullet } from "./bullets.js";
 import { settings } from "./settings.js";
@@ -330,12 +330,8 @@ export class Player {
       if (Math.floor(elapsed / 0.1) % 2 === 0) return;
     }
     const bx = this.bodyRenderer.lx, by = this.bodyRenderer.ly;
-    // Player 2 gets a hue shift (the Unity build tinted players via UI.ColorSelection).
-    const ctx = getCtx();
-    if (this.index === 1 && this.character === "commando") ctx.filter = "hue-rotate(140deg)";
-    const sprite = (name) => characterSprite(this.character, name, this.index === 1);
+    const sprite = (name) => characterSprite(this.character, name);
     if (this.legsAnim.sprite) drawSprite(sprite(this.legsAnim.sprite), this.x, this.y, this.flip);
     if (this.bodyAnim.sprite) drawSprite(sprite(this.bodyAnim.sprite), this.x + (this.flip ? -bx : bx), this.y + by, this.flip);
-    ctx.filter = "none";
   }
 }

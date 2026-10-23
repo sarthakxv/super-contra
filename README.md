@@ -12,20 +12,20 @@ Open http://127.0.0.1:8737. Serve it over HTTP, because `file://` blocks the JSO
 fetches. `tools/serve.py` is a small no-cache static server. `python -m http.server` also works,
 but it can drop connections during the initial asset burst and serve stale modules after edits.
 
-| | Player 1 | Player 2 |
-|---|---|---|
-| Move / aim | Arrow keys | WASD |
-| Fire (B) | Z | F |
-| Jump (A) | X | G |
+| | Keys |
+|---|---|
+| Move / aim | Arrow keys |
+| Fire (B) | Z |
+| Jump (A) | X |
 
-Gamepads 1 and 2 map to the players (south = jump, east/west = fire). Enter or Esc starts and
-pauses, F2 toggles the collider overlay, and M mutes. Prone + jump drops through ledges.
+The first gamepad also works (south = jump, east/west = fire). Enter or Esc starts and pauses,
+F2 toggles the collider overlay, and M mutes. Prone + jump drops through ledges.
 
-Open **Customize** on the title screen or while paused to rebind each player's keyboard
-controls and choose Commando, Viper, Ember, or Ghost. All characters share the same
+Open **Customize** on the title screen or while paused to rebind the keyboard controls and
+choose Commando, Viper, Ember, or Ghost. All characters share the same
 abilities. Save applies keyboard changes immediately; character changes apply to the
 next run. Choices are remembered in this browser. Restore defaults resets the current
-tab for both players; Cancel discards unsaved changes. Gamepad mappings stay fixed.
+tab; Cancel discards unsaved changes. Gamepad mappings stay fixed.
 
 ## How it was ported for browser
 
@@ -43,9 +43,9 @@ tab for both players; Cancel discards unsaved changes. Gamepad mappings stay fix
 
 ## Differences from the Unity build
 
-- **Co-op is local** (same keyboard or gamepads) instead of Mirror networking. The camera follows
-  the midpoint of the living players and keeps both on screen.
-- **Rendering:** player 2 is hue-shifted, the HUD draws life medals as simple shapes, and a 1P/2P
-  select on the title screen replaces the menu scenes (customize, online lobby).
+- **Single player only** for now. The Unity build's Mirror co-op will come back as online co-op;
+  the game loop already keeps players in a list, so a second player only needs an input source.
+- **Rendering:** the HUD draws life medals as simple shapes, and the title screen starts the game
+  directly instead of going through the menu scenes (customize, online lobby).
 - **Victory and defeat** wait for Enter instead of returning to the menu after 5 s.
 

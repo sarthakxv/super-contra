@@ -9,8 +9,7 @@ export function initCustomization({ onOpen, onClose }) {
   const roster = document.getElementById("character-roster");
   const status = document.getElementById("customize-status");
   const tabs = [...dialog.querySelectorAll('[role="tab"]')];
-  const playerButtons = [...dialog.querySelectorAll("[data-player]")];
-  let draft, player = 0, capture = null, previousFocus, tab = "controls";
+  let draft, capture = null, previousFocus, tab = "controls";
   const body = new Animator("Controller Body"), legs = new Animator("Controller Legs");
   body.play("Run"); legs.play("Run");
 
@@ -29,8 +28,8 @@ export function initCustomization({ onOpen, onClose }) {
       const name = document.createElement("span"); name.textContent = action === "b" ? "Shoot" : action === "down" ? "Duck/down" : label;
       const button = document.createElement("button"); button.type = "button";
       button.className = "key-binding";
-      button.textContent = capture === action ? "Press a key…" : keyLabel(draft.bindings[player][action]);
-      button.setAttribute("aria-label", `Player ${player + 1}: ${label}, ${button.textContent}. Change binding`);
+      button.textContent = capture === action ? "Press a key…" : keyLabel(draft.bindings[0][action]);
+      button.setAttribute("aria-label", `${label}, ${button.textContent}. Change binding`);
       button.setAttribute("aria-describedby", "customize-status");
       button.setAttribute("aria-pressed", String(capture === action)); button.dataset.action = action;
       button.addEventListener("click", () => {
@@ -43,26 +42,24 @@ export function initCustomization({ onOpen, onClose }) {
   }
 
   function renderRoster() {
-    for (const button of playerButtons) {
-      button.querySelector(".player-character").textContent = CHARACTERS.find((character) => character.id === draft.characters[Number(button.dataset.player)]).name;
-    }
+    document.getElementById("player-character").textContent = CHARACTERS.find((character) => character.id === draft.characters[0]).name;
     roster.replaceChildren();
     for (const character of CHARACTERS) {
       const card = document.createElement("button"); card.type = "button"; card.className = "character-card";
       card.dataset.character = character.id;
-      card.setAttribute("aria-pressed", String(draft.characters[player] === character.id));
+      card.setAttribute("aria-pressed", String(draft.characters[0] === character.id));
       card.setAttribute("aria-label", `${character.name}. ${character.detail}`);
       const canvas = document.createElement("canvas"); canvas.width = 64; canvas.height = 64;
       canvas.setAttribute("aria-hidden", "true");
       const name = document.createElement("strong"); name.textContent = character.name;
       const detail = document.createElement("span"); detail.className = "character-detail"; detail.textContent = character.detail;
       const selected = document.createElement("span"); selected.className = "character-selection";
-      selected.textContent = draft.characters[player] === character.id ? "Ready" : "Select";
+      selected.textContent = draft.characters[0] === character.id ? "Ready" : "Select";
       card.append(canvas, name, detail, selected);
       card.addEventListener("click", () => {
-        draft.characters[player] = character.id; renderRoster();
+        draft.characters[0] = character.id; renderRoster();
         roster.querySelector(`[data-character="${character.id}"]`).focus();
-        message(`${character.name} selected for Player ${player + 1}. Save to keep your choice.`); draw(0);
+        message(`${character.name} selected. Save to keep your choice.`); draw(0);
       });
       roster.append(card);
     }
@@ -86,14 +83,6 @@ export function initCustomization({ onOpen, onClose }) {
       selectTab(next.dataset.tab); next.focus();
     });
   }
-  for (const button of playerButtons) {
-    button.addEventListener("click", () => {
-      cancelCapture(); player = Number(button.dataset.player);
-      for (const item of playerButtons) item.setAttribute("aria-pressed", String(item === button));
-      document.getElementById("player-caption").textContent = `Editing Player ${player + 1}`;
-      renderControls(); renderRoster(); message(""); draw(0);
-    });
-  }
   dialog.addEventListener("keydown", (event) => {
     if (!capture) {
       if (event.code === "Tab") {
@@ -115,9 +104,9 @@ export function initCustomization({ onOpen, onClose }) {
     const isShift = event.code === "ShiftLeft" || event.code === "ShiftRight";
     const error = event.ctrlKey || event.metaKey || event.altKey || (event.shiftKey && !isShift)
       ? "Use one key at a time. Left / Right Shift can be assigned on their own; key combinations are unsupported."
-      : bindingError(draft.bindings, player, action, event.code);
+      : bindingError(draft.bindings, 0, action, event.code);
     if (error) { message(error, true); return; }
-    draft.bindings[player][action] = event.code;
+    draft.bindings[0][action] = event.code;
     capture = null; renderControls();
     controls.querySelector(`[data-action="${action}"]`).focus();
     message(`${ACTIONS[action]} assigned to ${keyLabel(event.code)}. Save to apply.`);
@@ -138,7 +127,7 @@ export function initCustomization({ onOpen, onClose }) {
     if (tab === "controls") draft.bindings = defaultSettings().bindings;
     else draft.characters = defaultSettings().characters;
     renderControls(); renderRoster(); draw(0);
-    message(`${tab === "controls" ? "Both players’ keyboard bindings" : "Both characters"} reset. Save to apply.`);
+    message(`${tab === "controls" ? "Keyboard bindings" : "Character"} reset. Save to apply.`);
   });
 
   function draw(dt) {
@@ -147,13 +136,11 @@ export function initCustomization({ onOpen, onClose }) {
     for (const card of roster.children) {
       const canvas = card.querySelector("canvas"), ctx = canvas.getContext("2d");
       ctx.imageSmoothingEnabled = false; ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (player === 1 && card.dataset.character === "commando") ctx.filter = "hue-rotate(140deg)";
       for (const [frame, offset] of [[legs.sprite, 0], [body.sprite, 19]]) {
         if (!frame) continue;
-        const s = assets.sprites[characterSprite(card.dataset.character, frame, player === 1)];
+        const s = assets.sprites[characterSprite(card.dataset.character, frame)];
         ctx.drawImage(assets.images[s.tex], s.x, s.y, s.w, s.h, Math.round(30 - s.px), Math.round(56 - offset - s.py), s.w, s.h);
       }
-      ctx.filter = "none";
     }
   }
 

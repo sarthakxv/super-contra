@@ -10,9 +10,8 @@ import { initCustomization } from "./customize.js";
 
 const STEP = 0.02; // Unity Fixed Timestep
 
-const inputs = [new PlayerInput(0), new PlayerInput(1)];
+const inputs = [new PlayerInput(0)];
 let scene = "title";
-let menuIndex = 0;
 let game = null;
 let paused = false;
 let titleMusicStarted = false;
@@ -26,10 +25,8 @@ function refreshActions() {
 function refreshHelp() {
   const help = document.getElementById("help");
   help.replaceChildren();
-  settings.bindings.forEach((keys, i) => {
-    const label = document.createElement("b"); label.textContent = `P${i + 1} `;
-    help.append(label, `${[keys.up, keys.left, keys.down, keys.right].map(keyLabel).join("/")} move · ${keyLabel(keys.b)} fire · ${keyLabel(keys.a)} jump`, document.createElement("br"));
-  });
+  const keys = settings.bindings[0];
+  help.append(`${[keys.up, keys.left, keys.down, keys.right].map(keyLabel).join("/")} move · ${keyLabel(keys.b)} fire · ${keyLabel(keys.a)} jump`, document.createElement("br"));
   help.append("gamepads supported · Enter/Esc start/pause · F2 colliders · M mute");
 }
 
@@ -40,11 +37,9 @@ addEventListener("keydown", () => {
 }, { capture: true });
 
 function updateTitle() {
-  if (consumePress(settings.bindings[0].up) || consumePress(settings.bindings[1].up)) menuIndex = 0;
-  if (consumePress(settings.bindings[0].down) || consumePress(settings.bindings[1].down)) menuIndex = 1;
   if (startPressed() || consumePress(settings.bindings[0].b) || consumePress(settings.bindings[0].a)) {
     stopMusic();
-    game = new Game(inputs, menuIndex + 1);
+    game = new Game(inputs, inputs.length);
     window.game = game; // console access for debugging
     scene = "game";
     paused = false;
@@ -59,9 +54,8 @@ function drawTitle() {
   const ctx = getCtx();
   if (img) {
     ctx.drawImage(img, 256, 0, 256, 240, 0, -24, 256, 240);
-    // Move the original medal cursor (image 292,159 16x10) to the selected row.
-    fillRectScreen(36, 135, 16, 10, "#000");
-    ctx.drawImage(img, 292, 159, 16, 10, 36, 135 + menuIndex * 16, 16, 10);
+    // Single player for now: mask the original "2 PLAYERS" row (co-op returns with online play).
+    fillRectScreen(52, 150, 78, 12, "#000");
   }
   fillRectScreen(0, VIEW_H - 16, VIEW_W, 16, "#000");
   text(`ENTER / ${keyLabel(settings.bindings[0].b)} to start`, VIEW_W / 2, VIEW_H - 12, "#888", "center");
