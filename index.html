@@ -16,6 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="canonical" href="https://super-contra.pages.dev/">
 <link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="customize.css">
+<link rel="preload" href="assets/ui/contra-setup.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -81,16 +83,60 @@
 <script>
   // Same integer scale as render.js fit(), applied before the modules load so the CRT line doesn't resize mid-warm-up.
   (function (c) {
-    var s = Math.max(1, Math.floor(Math.min(innerWidth / 256, (innerHeight - 60) / 192)));
+    var s = Math.max(1, Math.floor(Math.min((innerWidth - 24) / 256, (innerHeight - 140) / 192)));
     c.style.width = 256 * s + "px";
     c.style.height = 192 * s + "px";
   })(document.getElementById("screen"));
 </script>
+<div class="game-actions">
+  <button id="resume-button" type="button" hidden>Resume game</button>
+  <button id="customize-button" type="button" disabled>Customize</button>
+</div>
+<p id="settings-feedback" role="status" hidden></p>
 <div id="help">
   <b>P1</b> arrows · <b>Z</b> fire · <b>X</b> jump &nbsp;|&nbsp;
   <b>P2</b> WASD · <b>F</b> fire · <b>G</b> jump &nbsp;|&nbsp;
   gamepads supported · <b>Enter/Esc</b> start/pause · <b>F2</b> colliders · <b>M</b> mute
 </div>
+<dialog id="customize" aria-labelledby="customize-title">
+  <header class="customize-heading">
+    <button class="player-select" type="button" data-player="0" aria-pressed="true" aria-label="Customize Player 1">
+      <span class="player-label">1UP</span><span class="player-character">Commando</span>
+    </button>
+    <div class="setup-title"><span class="eyebrow">Super Contra</span><h1 id="customize-title">Player setup</h1></div>
+    <button class="player-select" type="button" data-player="1" aria-pressed="false" aria-label="Customize Player 2">
+      <span class="player-label">2UP</span><span class="player-character">Commando</span>
+    </button>
+  </header>
+  <div class="customize-tabs" role="tablist" aria-label="Customization">
+    <button id="controls-tab" type="button" role="tab" aria-selected="true" aria-controls="controls-panel" data-tab="controls">Controls</button>
+    <button id="characters-tab" type="button" role="tab" aria-selected="false" aria-controls="characters-panel" tabindex="-1" data-tab="characters">Characters</button>
+  </div>
+  <div class="customize-content">
+    <span id="player-caption" class="visually-hidden">Editing Player 1</span>
+    <section id="controls-panel" role="tabpanel" aria-labelledby="controls-tab" tabindex="0">
+      <p class="panel-description">Select a key to change</p>
+      <div class="binding-heading" aria-hidden="true"><span>No.</span><span>Action</span><span>Key</span></div>
+      <div id="control-bindings" class="binding-grid"></div>
+      <div class="reserved-keys">
+        <p><span>Enter / Esc</span> Start/pause</p>
+        <p><span>M / F2</span> Sound/debug</p>
+        <p class="gamepad-note">Gamepad controls remain fixed</p>
+      </div>
+    </section>
+    <section id="characters-panel" role="tabpanel" aria-labelledby="characters-tab" tabindex="0" hidden>
+      <p id="character-notice" class="panel-description"></p>
+      <div id="character-roster" class="character-roster" role="group" aria-label="Character roster"></div>
+      <p class="cosmetic-note">Same abilities for every fighter<br>2UP uses an alternate palette</p>
+    </section>
+    <p id="customize-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+  <footer class="customize-footer">
+    <button id="customize-reset" type="button" aria-label="Restore defaults">Defaults</button>
+    <button id="customize-cancel" type="button">Cancel</button>
+    <button id="customize-save" type="button" aria-label="Save changes">Save</button>
+  </footer>
+</dialog>
 <script type="module" src="src/main.js"></script>
 </body>
 </html>

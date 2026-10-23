@@ -21,6 +21,12 @@ but it can drop connections during the initial asset burst and serve stale modul
 Gamepads 1 and 2 map to the players (south = jump, east/west = fire). Enter or Esc starts and
 pauses, F2 toggles the collider overlay, and M mutes. Prone + jump drops through ledges.
 
+Open **Customize** on the title screen or while paused to rebind each player's keyboard
+controls and choose Commando, Viper, Ember, or Ghost. All characters share the same
+abilities. Save applies keyboard changes immediately; character changes apply to the
+next run. Choices are remembered in this browser. Restore defaults resets the current
+tab for both players; Cancel discards unsaved changes. Gamepad mappings stay fixed.
+
 ## How it was ported for browser
 
 - `tools/extract.py` reads `Contra_Data` with UnityPy. The build's typetrees are stripped, so the

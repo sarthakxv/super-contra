@@ -17,7 +17,7 @@ export function initRender(canvas) {
   ctx = canvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
   const fit = () => {
-    const scale = Math.max(1, Math.floor(Math.min(innerWidth / VIEW_W, (innerHeight - 60) / VIEW_H)));
+    const scale = Math.max(1, Math.floor(Math.min((innerWidth - 24) / VIEW_W, (innerHeight - 140) / VIEW_H)));
     canvas.style.width = VIEW_W * scale + "px";
     canvas.style.height = VIEW_H * scale + "px";
   };
