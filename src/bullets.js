@@ -40,11 +40,12 @@ export class Shooter {
     this.lastFireTime = -999;
     this.reloadTime = 0;
     this.assign(0);
+    this.current = this.weapon.bullets; // MyStart: Reload()
   }
 
+  /** AssignBullet: switches weapon; the magazine count carries over until the next reload. */
   assign(index) {
     this.weapon = weaponStats(index);
-    this.current = this.weapon.bullets;
   }
 
   update(dt) {

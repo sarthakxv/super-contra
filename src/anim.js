@@ -6,6 +6,12 @@
 
 import { assets } from "./assets.js";
 
+/** Look up a controller by its asset key ("file:pathid"), as referenced from Animator2D._controller. */
+export function controllerByRef(ref) {
+  for (const [name, c] of Object.entries(assets.anims.controllers)) if (c.asset === ref) return name;
+  throw new Error(`unknown controller ref ${ref}`);
+}
+
 export class Animator {
   /** @param {string} controllerName key in anims.controllers */
   constructor(controllerName) {
@@ -47,7 +53,8 @@ export class Animator {
     const clip = this.current;
     if (!clip || !this.playing) return;
     this.time += dt;
-    while (this.frame < clip.frames.length && this.time >= clip.interval * this.frame) {
+    // At most one frame per update (Animator2D.Update).
+    if (this.frame < clip.frames.length && this.time >= clip.interval * this.frame) {
       this.sprite = clip.frames[this.frame];
       this.frame++;
       if (this.onEvent) {

@@ -321,8 +321,11 @@ export class Player {
 
   draw() {
     if (this.state === State.Spectate) return;
-    // Invincibility blink: renderers toggled every frame.
-    if (this.invincible && Math.floor(this.game.time / 0.04) % 2) return;
+    // InvincibilityCoroutine: renderers toggle every 0.1 s, starting hidden.
+    if (this.invincible) {
+      const elapsed = this.game.time - (this.invincibleUntil - this.invincibilityTime);
+      if (Math.floor(elapsed / 0.1) % 2 === 0) return;
+    }
     const bx = this.bodyRenderer.lx, by = this.bodyRenderer.ly;
     if (this.legsAnim.sprite) drawSprite(this.legsAnim.sprite, this.x, this.y, this.flip);
     if (this.bodyAnim.sprite) drawSprite(this.bodyAnim.sprite, this.x + (this.flip ? -bx : bx), this.y + by, this.flip);

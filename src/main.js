@@ -26,6 +26,7 @@ function updateTitle() {
   if (startPressed() || consumePress("KeyZ") || consumePress("KeyX")) {
     stopMusic();
     game = new Game(inputs, menuIndex + 1);
+    window.game = game; // console access for debugging
     scene = "game";
   }
 }

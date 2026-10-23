@@ -7,6 +7,14 @@ import { ledges, water, LAYER } from "./world.js";
 import { resolveDamage } from "./combat.js";
 import { playSfx, playMusic, stopMusic } from "./audio.js";
 import { Player, State } from "./player.js";
+import { Soldier, SoldierHiding, Thief, Turret, GroundTurret, Prop } from "./enemies.js";
+import { Bridge, FalconBox, Scroll, ObjectEnabler, EnemySpawner, FallDamage } from "./objects.js";
+import { SuperMachine } from "./boss.js";
+
+const SCENE_TYPES = { Soldier, SoldierHiding, Thief, Turret, GroundTurret, SuperMachine,
+  Bridge, FalconBox, EnemySpawner };
+
+const RESULT_SFX = { victory: 0, defeat: 1 };
 
 const CAMERA_Y = -0.55;
 const CAMERA_MIN_X = -2, CAMERA_MAX_X = 190;
@@ -35,11 +43,53 @@ export class Game {
     if (bossCam) this.bossCameraX = bossCam.x;
 
     camera.x = -1.7; camera.y = CAMERA_Y;
+    this.wallX = Infinity;
     this.players = [];
     for (let i = 0; i < playerCount; i++) {
       this.players.push(this.add(new Player(this, i, inputs[i], spawn.x + i * 1.5, spawn.y)));
     }
+    this.buildLevel();
     playMusic("03 Stage 1 - Jungle % Stage 7 - Hangar");
+  }
+
+  /** Instantiate every scripted scene object by its MonoBehaviour type. */
+  buildLevel() {
+    const scrolls = {};
+    const enablers = [];
+    const visit = (node) => {
+      const types = node.components.map((c) => c.type);
+      const scripted = types.find((t) => SCENE_TYPES[t]);
+      if (scripted) { this.add(new SCENE_TYPES[scripted](this, node)); return; }
+      if (types.includes("Scroll")) { scrolls[node.tkey] = this.add(new Scroll(this, node)); return; }
+      if (types.includes("ObjectEnabler")) { enablers.push(node); return; }
+      if (node.name.startsWith("Fall Damage")) { this.add(new FallDamage(this, node)); return; }
+      if (node.name.startsWith("Bush")) this.add(new Prop(node));
+      for (const c of node.children) visit(c);
+    };
+    for (const root of assets.level.scene) {
+      if (["Grid", "Main Camera", "Level Manager", "Sound Manager", "EventSystem"].includes(root.name)) continue;
+      if (root.name.startsWith("Blueprint")) continue;
+      visit(root);
+    }
+    for (const node of enablers) {
+      const targetRef = comp(node, "ObjectEnabler").fields.target.ref;
+      // The enabler references the Scroll's GameObject; match it against the Scroll node's GameObject key.
+      const target = Object.values(scrolls).find((s) => s.node.key === targetRef);
+      this.add(new ObjectEnabler(this, node, target));
+    }
+  }
+
+  targetablePlayers() {
+    return this.players.filter((p) => p.state !== State.Spectate && p.state !== State.Dead);
+  }
+
+  cameraRight() { return camera.x + HALF_W; }
+
+  onBossStarted() { this.bossLock = true; }
+
+  onBossDefeated() {
+    this.bossLock = false;
+    this.finish("victory");
   }
 
   findNode(name) { return assets.level.scene.find((n) => n.name === name); }
@@ -54,11 +104,14 @@ export class Game {
 
   /** Screen edges are walls: CameraController clamps the player to cam.x - 8 (left). */
   clampToView(p) {
-    const minX = camera.x - HALF_W + 0.4;
+    const minX = camera.x - HALF_W;
     const maxX = camera.x + HALF_W - 0.4;
     if (p.body.x < minX) p.body.x = minX;
     // Co-op only: keep the leader from walking off the right edge away from a partner.
     if (this.players.length > 1 && p.body.x > maxX) p.body.x = maxX;
+    // The boss wall's solid collider.
+    const half = p.body.box.w / 2;
+    if (p.body.x + half > this.wallX) p.body.x = this.wallX - half;
   }
 
   updateCamera(dt) {
@@ -85,7 +138,7 @@ export class Game {
     this.result = result;
     this.resultTime = this.time;
     stopMusic();
-    if (result === "defeat") playMusic("13 Game Over", false);
+    this.sfx(RESULT_SFX[result]);
   }
 
   update(dt) {
@@ -113,7 +166,7 @@ export class Game {
   drawHud() {
     // UI.PlayerHealth: one medal per remaining life, top-left.
     this.players.forEach((p, i) => {
-      const lives = p.state === State.Spectate ? 0 : p.lives + (p.state === State.Dead ? 0 : 1);
+      const lives = p.state === State.Spectate ? 0 : p.lives;
       text(`${i + 1}P`, 4 + i * 128, 4, i ? "#7cf" : "#f77");
       for (let k = 0; k < Math.min(lives, 6); k++) {
         fillRectScreen(20 + i * 128 + k * 8, 5, 5, 8, "#3af");
