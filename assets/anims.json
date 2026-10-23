@@ -1,0 +1,4291 @@
+{
+ "_semantics": {
+  "interval": "1/speed seconds per frame",
+  "frameAdvance": "Animator2D.Update: time+=dt; if time >= interval*currentFrame: sprite=frames[currentFrame]; currentFrame++ ; then fire events whose frame == new currentFrame",
+  "finish": "IsAnimationFinished: time >= interval*length. loop -> Play(name, restart=true) else isPlaying=false",
+  "play": "Play(name, restart): only resets if name differs from current OR restart==true"
+ },
+ "animations": {
+  "Big Explosion": {
+   "asset": "sharedassets0.assets:323",
+   "identifier": "Explosion",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.4,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3"
+   ],
+   "events": []
+  },
+  "Small Explosion": {
+   "asset": "sharedassets0.assets:324",
+   "identifier": "Explosion",
+   "loop": false,
+   "speed": 12.0,
+   "interval": 0.08333333333333333,
+   "duration": 0.25,
+   "frames": [
+    "Explosion c 1",
+    "Explosion c 2",
+    "Explosion c 3"
+   ],
+   "events": []
+  },
+  "Body Aim Down": {
+   "asset": "sharedassets0.assets:325",
+   "identifier": "Aim Down",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    null
+   ],
+   "events": []
+  },
+  "Body Aim High": {
+   "asset": "sharedassets0.assets:326",
+   "identifier": "Aim High",
+   "loop": true,
+   "speed": 5.0,
+   "interval": 0.2,
+   "duration": 0.4,
+   "frames": [
+    "Aim High",
+    "Shoot High"
+   ],
+   "events": []
+  },
+  "Body Aim Low": {
+   "asset": "sharedassets0.assets:327",
+   "identifier": "Aim Low",
+   "loop": true,
+   "speed": 5.0,
+   "interval": 0.2,
+   "duration": 0.4,
+   "frames": [
+    "Aim Low",
+    "Shoot Low"
+   ],
+   "events": []
+  },
+  "Body Aim Straight": {
+   "asset": "sharedassets0.assets:328",
+   "identifier": "Aim Straight",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Aim Straight"
+   ],
+   "events": []
+  },
+  "Body Aim Up": {
+   "asset": "sharedassets0.assets:329",
+   "identifier": "Aim Up",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Aim Up"
+   ],
+   "events": []
+  },
+  "Body Empty": {
+   "asset": "sharedassets0.assets:330",
+   "identifier": "Empty",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    null
+   ],
+   "events": []
+  },
+  "Body Falling": {
+   "asset": "sharedassets0.assets:331",
+   "identifier": "Falling",
+   "loop": true,
+   "speed": 12.0,
+   "interval": 0.08333333333333333,
+   "duration": 0.08333333333333333,
+   "frames": [
+    "Body Run 5"
+   ],
+   "events": []
+  },
+  "Body Jump": {
+   "asset": "sharedassets0.assets:332",
+   "identifier": "Jump",
+   "loop": true,
+   "speed": 12.0,
+   "interval": 0.08333333333333333,
+   "duration": 0.3333333333333333,
+   "frames": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "events": []
+  },
+  "Body Run": {
+   "asset": "sharedassets0.assets:333",
+   "identifier": "Run",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.75,
+   "frames": [
+    "Body Run 1",
+    "Body Run 2",
+    "Body Run 3",
+    "Body Run 4",
+    "Body Run 5",
+    "Body Run 6"
+   ],
+   "events": []
+  },
+  "Body Shoot Down": {
+   "asset": "sharedassets0.assets:334",
+   "identifier": "Shoot Down",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    null,
+    null
+   ],
+   "events": []
+  },
+  "Body Shoot High": {
+   "asset": "sharedassets0.assets:335",
+   "identifier": "Shoot High",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Aim High",
+    "Shoot High"
+   ],
+   "events": []
+  },
+  "Body Shoot Low": {
+   "asset": "sharedassets0.assets:336",
+   "identifier": "Shoot Low",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Aim Low",
+    "Shoot Low"
+   ],
+   "events": []
+  },
+  "Body Shoot Straight": {
+   "asset": "sharedassets0.assets:337",
+   "identifier": "Shoot Straight",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Aim Straight",
+    "Shoot Straight"
+   ],
+   "events": []
+  },
+  "Body Shoot Up": {
+   "asset": "sharedassets0.assets:338",
+   "identifier": "Shoot Up",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Aim Up",
+    "Shoot Up"
+   ],
+   "events": []
+  },
+  "Body Water GetUp": {
+   "asset": "sharedassets0.assets:339",
+   "identifier": "Water GetUp",
+   "loop": false,
+   "speed": 6.0,
+   "interval": 0.16666666666666666,
+   "duration": 0.3333333333333333,
+   "frames": [
+    null,
+    "Body Run 5"
+   ],
+   "events": []
+  },
+  "Legs Aim Down": {
+   "asset": "sharedassets0.assets:342",
+   "identifier": "Aim Down",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Aim Down"
+   ],
+   "events": []
+  },
+  "Legs Dead": {
+   "asset": "sharedassets0.assets:343",
+   "identifier": "Dead",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Dead 1",
+    "Dead 2",
+    "Dead 3",
+    "Dead 4",
+    "Dead 5"
+   ],
+   "events": []
+  },
+  "Legs Dive": {
+   "asset": "sharedassets0.assets:344",
+   "identifier": "Dive",
+   "loop": true,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "Dive 1",
+    "Dive 2"
+   ],
+   "events": []
+  },
+  "Legs Empty": {
+   "asset": "sharedassets0.assets:345",
+   "identifier": "Empty",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    null
+   ],
+   "events": []
+  },
+  "Legs Falling": {
+   "asset": "sharedassets0.assets:346",
+   "identifier": "Falling",
+   "loop": true,
+   "speed": 12.0,
+   "interval": 0.08333333333333333,
+   "duration": 0.08333333333333333,
+   "frames": [
+    "Legs Run 5"
+   ],
+   "events": []
+  },
+  "Legs Idle": {
+   "asset": "sharedassets0.assets:347",
+   "identifier": "Idle",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Legs Idle"
+   ],
+   "events": []
+  },
+  "Legs Jump": {
+   "asset": "sharedassets0.assets:348",
+   "identifier": "Jump",
+   "loop": true,
+   "speed": 12.0,
+   "interval": 0.08333333333333333,
+   "duration": 0.3333333333333333,
+   "frames": [
+    "Jump 1",
+    "Jump 2",
+    "Jump 3",
+    "Jump 4"
+   ],
+   "events": []
+  },
+  "Legs Run": {
+   "asset": "sharedassets0.assets:349",
+   "identifier": "Run",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.75,
+   "frames": [
+    "Legs Run 1",
+    "Legs Run 2",
+    "Legs Run 3",
+    "Legs Run 4",
+    "Legs Run 5",
+    "Legs Run 6"
+   ],
+   "events": []
+  },
+  "Legs Shoot Down": {
+   "asset": "sharedassets0.assets:350",
+   "identifier": "Shoot Down",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Aim Down",
+    "Shoot Down"
+   ],
+   "events": []
+  },
+  "Legs Splash": {
+   "asset": "sharedassets0.assets:351",
+   "identifier": "Splash",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "Splash",
+    "Dive 1",
+    "Dive 2"
+   ],
+   "events": []
+  },
+  "Legs Water Aim High": {
+   "asset": "sharedassets0.assets:352",
+   "identifier": "Water Aim High",
+   "loop": true,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "Water Aim High",
+    "Water Aim High 2"
+   ],
+   "events": []
+  },
+  "Legs Water Aim Up": {
+   "asset": "sharedassets0.assets:353",
+   "identifier": "Water Aim Up",
+   "loop": true,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "Water Aim Up",
+    "Water Aim Up 2"
+   ],
+   "events": []
+  },
+  "Legs Water GetUp": {
+   "asset": "sharedassets0.assets:354",
+   "identifier": "Water GetUp",
+   "loop": false,
+   "speed": 6.0,
+   "interval": 0.16666666666666666,
+   "duration": 0.3333333333333333,
+   "frames": [
+    "Body Run 4",
+    "Legs Run 5"
+   ],
+   "events": []
+  },
+  "Legs Water Idle": {
+   "asset": "sharedassets0.assets:355",
+   "identifier": "Water Idle",
+   "loop": true,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "Water Idle 1",
+    "Water Idle 2"
+   ],
+   "events": []
+  },
+  "Legs Water Shoot High": {
+   "asset": "sharedassets0.assets:356",
+   "identifier": "Water Shoot High",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Water Aim High",
+    "Water Shooting High 1"
+   ],
+   "events": []
+  },
+  "Legs Water Shoot Straight": {
+   "asset": "sharedassets0.assets:357",
+   "identifier": "Water Shoot Straight",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Water Aim Straight",
+    "Water Shooting Straight 1"
+   ],
+   "events": []
+  },
+  "Legs Water Shoot Up": {
+   "asset": "sharedassets0.assets:358",
+   "identifier": "Water Shoot Up",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.2,
+   "frames": [
+    "Water Aim Up",
+    "Water Shooting Up 1"
+   ],
+   "events": []
+  },
+  "Aim High": {
+   "asset": "sharedassets0.assets:359",
+   "identifier": "Aim High",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Soldier High 2"
+   ],
+   "events": []
+  },
+  "Aim Low": {
+   "asset": "sharedassets0.assets:360",
+   "identifier": "Aim Low",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Soldier Low"
+   ],
+   "events": []
+  },
+  "Aim Straight": {
+   "asset": "sharedassets0.assets:361",
+   "identifier": "Aim Straight",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "Soldier Straight 2"
+   ],
+   "events": []
+  },
+  "Dead#sharedassets0.assets:363": {
+   "asset": "sharedassets0.assets:363",
+   "identifier": "Dead",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.75,
+   "frames": [
+    "Soldier High 1",
+    "Soldier High 1",
+    "Soldier High 1",
+    "Explosion a 2",
+    "Explosion a 3",
+    "Explosion a 3"
+   ],
+   "events": []
+  },
+  "Shoot High": {
+   "asset": "sharedassets0.assets:364",
+   "identifier": "Shoot High",
+   "loop": false,
+   "speed": 15.0,
+   "interval": 0.06666666666666667,
+   "duration": 0.13333333333333333,
+   "frames": [
+    "Soldier High 1",
+    "Soldier High 2"
+   ],
+   "events": []
+  },
+  "Shoot Low": {
+   "asset": "sharedassets0.assets:365",
+   "identifier": "Shoot Low",
+   "loop": false,
+   "speed": 15.0,
+   "interval": 0.06666666666666667,
+   "duration": 0.13333333333333333,
+   "frames": [
+    "Soldier Low",
+    "Soldier Low"
+   ],
+   "events": []
+  },
+  "Shoot Straight": {
+   "asset": "sharedassets0.assets:366",
+   "identifier": "Shoot Straight",
+   "loop": false,
+   "speed": 15.0,
+   "interval": 0.06666666666666667,
+   "duration": 0.13333333333333333,
+   "frames": [
+    "Soldier Straight 1",
+    "Soldier Straight 2"
+   ],
+   "events": []
+  },
+  "Dead#sharedassets0.assets:368": {
+   "asset": "sharedassets0.assets:368",
+   "identifier": "Dead",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.75,
+   "frames": [
+    "Thief Jump",
+    "Thief Jump",
+    "Thief Jump",
+    "Explosion a 1",
+    "Explosion a 2",
+    "Explosion a 3"
+   ],
+   "events": []
+  },
+  "Empty#sharedassets0.assets:369": {
+   "asset": "sharedassets0.assets:369",
+   "identifier": "Empty",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.125,
+   "frames": [
+    null
+   ],
+   "events": []
+  },
+  "Jump": {
+   "asset": "sharedassets0.assets:370",
+   "identifier": "Jump",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.125,
+   "frames": [
+    "Thief Jump"
+   ],
+   "events": []
+  },
+  "Run": {
+   "asset": "sharedassets0.assets:371",
+   "identifier": "Run",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.75,
+   "frames": [
+    "Thief Run 1",
+    "Thief Run 2",
+    "Thief Run 3",
+    "Thief Run 4",
+    "Thief Run 5",
+    "Thief Run 3"
+   ],
+   "events": []
+  },
+  "Splash": {
+   "asset": "sharedassets0.assets:372",
+   "identifier": "Splash",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "Splash",
+    "Dive 1",
+    "Dive 2"
+   ],
+   "events": []
+  },
+  "Big Explosion Delayed 1": {
+   "asset": "sharedassets3.assets:146",
+   "identifier": "Explosion",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.5,
+   "frames": [
+    null,
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3"
+   ],
+   "events": []
+  },
+  "Big Explosion Delayed 2": {
+   "asset": "sharedassets3.assets:147",
+   "identifier": "Explosion",
+   "loop": false,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.6,
+   "frames": [
+    null,
+    null,
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3"
+   ],
+   "events": []
+  },
+  "Closed#sharedassets3.assets:148": {
+   "asset": "sharedassets3.assets:148",
+   "identifier": "Closed",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.125,
+   "frames": [
+    "ContraSheet4_0"
+   ],
+   "events": []
+  },
+  "Destroy#sharedassets3.assets:150": {
+   "asset": "sharedassets3.assets:150",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3",
+    null
+   ],
+   "events": []
+  },
+  "Opened": {
+   "asset": "sharedassets3.assets:151",
+   "identifier": "Opened",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_4",
+    "ContraSheet4_5",
+    "ContraSheet4_6"
+   ],
+   "events": []
+  },
+  "Transition": {
+   "asset": "sharedassets3.assets:152",
+   "identifier": "Transition",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_1",
+    "ContraSheet4_2",
+    "ContraSheet4_3"
+   ],
+   "events": []
+  },
+  "Appear": {
+   "asset": "sharedassets3.assets:153",
+   "identifier": "Appear",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_59",
+    "ContraSheet4_55",
+    "ContraSheet4_51"
+   ],
+   "events": []
+  },
+  "Destroy#sharedassets3.assets:155": {
+   "asset": "sharedassets3.assets:155",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b pivot 3",
+    "Explosion b pivot 1",
+    "Explosion b pivot 2",
+    "Explosion b pivot 3",
+    null
+   ],
+   "events": []
+  },
+  "Empty#sharedassets3.assets:156": {
+   "asset": "sharedassets3.assets:156",
+   "identifier": "Empty",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.125,
+   "frames": [
+    null
+   ],
+   "events": []
+  },
+  "High": {
+   "asset": "sharedassets3.assets:157",
+   "identifier": "High",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_52",
+    "ContraSheet4_57",
+    "ContraSheet4_62"
+   ],
+   "events": []
+  },
+  "Straight": {
+   "asset": "sharedassets3.assets:158",
+   "identifier": "Straight",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_51",
+    "ContraSheet4_56",
+    "ContraSheet4_61"
+   ],
+   "events": []
+  },
+  "Up#sharedassets3.assets:159": {
+   "asset": "sharedassets3.assets:159",
+   "identifier": "Up",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet4_53",
+    "ContraSheet4_58",
+    "ContraSheet4_63"
+   ],
+   "events": []
+  },
+  "Core Destroy": {
+   "asset": "sharedassets3.assets:161",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3",
+    null
+   ],
+   "events": []
+  },
+  "Core Glowing": {
+   "asset": "sharedassets3.assets:162",
+   "identifier": "Glowing",
+   "loop": true,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.375,
+   "frames": [
+    "ContraSheet6_1",
+    "ContraSheet6_2",
+    "ContraSheet6_3"
+   ],
+   "events": []
+  },
+  "L Shooter Destroy": {
+   "asset": "sharedassets3.assets:163",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3",
+    null
+   ],
+   "events": []
+  },
+  "L Shooter Idle": {
+   "asset": "sharedassets3.assets:164",
+   "identifier": "Idle",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "ContraSheet6_5"
+   ],
+   "events": []
+  },
+  "L Shooter Shoot": {
+   "asset": "sharedassets3.assets:165",
+   "identifier": "Shoot",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.25,
+   "frames": [
+    "ContraSheet6_6",
+    "ContraSheet6_5"
+   ],
+   "events": []
+  },
+  "R Shooter Destroy": {
+   "asset": "sharedassets3.assets:167",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3",
+    null
+   ],
+   "events": []
+  },
+  "R Shooter Idle": {
+   "asset": "sharedassets3.assets:168",
+   "identifier": "Idle",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.1,
+   "frames": [
+    "ContraSheet6_4"
+   ],
+   "events": []
+  },
+  "R Shooter Shoot": {
+   "asset": "sharedassets3.assets:169",
+   "identifier": "Shoot",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.25,
+   "frames": [
+    "ContraSheet6_7",
+    "ContraSheet6_4"
+   ],
+   "events": []
+  },
+  "Closed#sharedassets3.assets:171": {
+   "asset": "sharedassets3.assets:171",
+   "identifier": "Closed",
+   "loop": false,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.75,
+   "frames": [
+    "ContraSheet4_26",
+    "ContraSheet4_29",
+    "ContraSheet4_32"
+   ],
+   "events": []
+  },
+  "Closing": {
+   "asset": "sharedassets3.assets:172",
+   "identifier": "Closing",
+   "loop": false,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "ContraSheet4_17",
+    "ContraSheet4_29"
+   ],
+   "events": []
+  },
+  "Destroy#sharedassets3.assets:174": {
+   "asset": "sharedassets3.assets:174",
+   "identifier": "Destroy",
+   "loop": false,
+   "speed": 8.0,
+   "interval": 0.125,
+   "duration": 0.625,
+   "frames": [
+    "Explosion b 3",
+    "Explosion b 1",
+    "Explosion b 2",
+    "Explosion b 3",
+    null
+   ],
+   "events": []
+  },
+  "Down": {
+   "asset": "sharedassets3.assets:175",
+   "identifier": "Down",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_41",
+    "ContraSheet4_44",
+    "ContraSheet4_47"
+   ],
+   "events": []
+  },
+  "Left High": {
+   "asset": "sharedassets3.assets:176",
+   "identifier": "LeftHigh",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_7",
+    "ContraSheet4_10",
+    "ContraSheet4_13"
+   ],
+   "events": []
+  },
+  "Left Low": {
+   "asset": "sharedassets3.assets:177",
+   "identifier": "LeftLow",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_40",
+    "ContraSheet4_43",
+    "ContraSheet4_46"
+   ],
+   "events": []
+  },
+  "Left Mid High": {
+   "asset": "sharedassets3.assets:178",
+   "identifier": "LeftMidHigh",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_16",
+    "ContraSheet4_19",
+    "ContraSheet4_22"
+   ],
+   "events": []
+  },
+  "Left Mid Low": {
+   "asset": "sharedassets3.assets:179",
+   "identifier": "LeftMidLow",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_34",
+    "ContraSheet4_36",
+    "ContraSheet4_38"
+   ],
+   "events": []
+  },
+  "Left": {
+   "asset": "sharedassets3.assets:180",
+   "identifier": "Left",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_25",
+    "ContraSheet4_28",
+    "ContraSheet4_31"
+   ],
+   "events": []
+  },
+  "Opening": {
+   "asset": "sharedassets3.assets:181",
+   "identifier": "Opening",
+   "loop": false,
+   "speed": 4.0,
+   "interval": 0.25,
+   "duration": 0.5,
+   "frames": [
+    "ContraSheet4_29",
+    "ContraSheet4_17"
+   ],
+   "events": []
+  },
+  "Right High": {
+   "asset": "sharedassets3.assets:182",
+   "identifier": "RightHigh",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_9",
+    "ContraSheet4_12",
+    "ContraSheet4_15"
+   ],
+   "events": []
+  },
+  "Right Low": {
+   "asset": "sharedassets3.assets:183",
+   "identifier": "RightLow",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_42",
+    "ContraSheet4_45",
+    "ContraSheet4_48"
+   ],
+   "events": []
+  },
+  "Right Mid High": {
+   "asset": "sharedassets3.assets:184",
+   "identifier": "RightMidHigh",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_18",
+    "ContraSheet4_21",
+    "ContraSheet4_24"
+   ],
+   "events": []
+  },
+  "Right Mid Low": {
+   "asset": "sharedassets3.assets:185",
+   "identifier": "RightMidLow",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_35",
+    "ContraSheet4_37",
+    "ContraSheet4_39"
+   ],
+   "events": []
+  },
+  "Right": {
+   "asset": "sharedassets3.assets:186",
+   "identifier": "Right",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_27",
+    "ContraSheet4_30",
+    "ContraSheet4_33"
+   ],
+   "events": []
+  },
+  "Up#sharedassets3.assets:187": {
+   "asset": "sharedassets3.assets:187",
+   "identifier": "Up",
+   "loop": true,
+   "speed": 10.0,
+   "interval": 0.1,
+   "duration": 0.3,
+   "frames": [
+    "ContraSheet4_8",
+    "ContraSheet4_11",
+    "ContraSheet4_14"
+   ],
+   "events": []
+  }
+ },
+ "controllers": {
+  "Controller Body": {
+   "asset": "sharedassets0.assets:340",
+   "animations": [
+    "Body Aim Straight",
+    "Body Run",
+    "Body Jump",
+    "Body Falling",
+    "Body Shoot High",
+    "Body Shoot Low",
+    "Body Shoot Straight",
+    "Body Shoot Up",
+    "Body Shoot Down",
+    "Body Aim High",
+    "Body Aim Low",
+    "Body Aim Up",
+    "Body Aim Down",
+    "Body Empty",
+    "Body Water GetUp"
+   ],
+   "identifiers": [
+    "Aim Straight",
+    "Run",
+    "Jump",
+    "Falling",
+    "Shoot High",
+    "Shoot Low",
+    "Shoot Straight",
+    "Shoot Up",
+    "Shoot Down",
+    "Aim High",
+    "Aim Low",
+    "Aim Up",
+    "Aim Down",
+    "Empty",
+    "Water GetUp"
+   ],
+   "defaultAnimation": "Aim Straight",
+   "usedBy": [
+    "prefab (sharedassets0.assets):Player/Body Renderer"
+   ],
+   "alias": "Player"
+  },
+  "Controller Legs": {
+   "asset": "sharedassets0.assets:341",
+   "animations": [
+    "Legs Idle",
+    "Legs Run",
+    "Legs Jump",
+    "Legs Falling",
+    "Legs Aim Down",
+    "Legs Shoot Down",
+    "Legs Empty",
+    "Legs Dive",
+    "Legs Splash",
+    "Legs Water Idle",
+    "Legs Water Shoot High",
+    "Legs Water Shoot Straight",
+    "Legs Water Shoot Up",
+    "Legs Water Aim High",
+    "Legs Water Aim Up",
+    "Legs Water GetUp",
+    "Legs Dead"
+   ],
+   "identifiers": [
+    "Idle",
+    "Run",
+    "Jump",
+    "Falling",
+    "Aim Down",
+    "Shoot Down",
+    "Empty",
+    "Dive",
+    "Splash",
+    "Water Idle",
+    "Water Shoot High",
+    "Water Shoot Straight",
+    "Water Shoot Up",
+    "Water Aim High",
+    "Water Aim Up",
+    "Water GetUp",
+    "Dead"
+   ],
+   "defaultAnimation": "Idle",
+   "usedBy": [
+    "prefab (sharedassets0.assets):Player/Legs Renderer"
+   ],
+   "alias": "Player"
+  },
+  "Controller2D#sharedassets0.assets:362": {
+   "asset": "sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead#sharedassets0.assets:363"
+   ],
+   "identifiers": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ],
+   "defaultAnimation": "Aim High",
+   "usedBy": [
+    "level3:Enemies/Soldier (2)/Renderer",
+    "level3:Enemies/Soldier/Renderer",
+    "level3:Enemies/Soldier Hiding (1)/Renderer",
+    "level3:Enemies/Soldier (3)/Renderer",
+    "level3:Enemies/Soldier (1)/Renderer",
+    "level3:Enemies/Soldier (1)/Renderer",
+    "level3:Enemies/Soldier Hiding/Renderer",
+    "prefab (sharedassets0.assets):Soldier/Renderer"
+   ],
+   "alias": "Soldier"
+  },
+  "Controller2D#sharedassets0.assets:367": {
+   "asset": "sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead#sharedassets0.assets:368",
+    "Splash",
+    "Empty#sharedassets0.assets:369"
+   ],
+   "identifiers": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ],
+   "defaultAnimation": "Run",
+   "usedBy": [
+    "level3:Enemies/Thief (3)/Renderer",
+    "level3:Enemies/Thief (1)/Renderer",
+    "level3:Enemies/Thief (2)/Renderer",
+    "level3:Enemies/Thief/Renderer",
+    "level3:Enemies/Thief (6)/Renderer",
+    "level3:Enemies/Thief (2)/Renderer",
+    "level3:Enemies/Thief (8)/Renderer",
+    "level3:Enemies/Thief (4)/Renderer",
+    "level3:Enemies/Thief (7)/Renderer",
+    "level3:Enemies/Thief (1)/Renderer",
+    "level3:Enemies/Thief (9)/Renderer",
+    "level3:Enemies/Thief (5)/Renderer",
+    "level3:Enemies/Thief (3)/Renderer",
+    "prefab (sharedassets0.assets):Thief/Renderer"
+   ],
+   "alias": "Thief"
+  },
+  "Controller2D#sharedassets3.assets:149": {
+   "asset": "sharedassets3.assets:149",
+   "animations": [
+    "Closed#sharedassets3.assets:148",
+    "Transition",
+    "Opened",
+    "Destroy#sharedassets3.assets:150"
+   ],
+   "identifiers": [
+    "Closed",
+    "Transition",
+    "Opened",
+    "Destroy"
+   ],
+   "defaultAnimation": "Closed",
+   "usedBy": [
+    "level3:Falcon Box (3)/Renderer",
+    "level3:Falcon Box (1)/Renderer",
+    "level3:Falcon Box (2)/Renderer"
+   ],
+   "alias": "Falcon Box"
+  },
+  "Controller2D#sharedassets3.assets:154": {
+   "asset": "sharedassets3.assets:154",
+   "animations": [
+    "Empty#sharedassets3.assets:156",
+    "Appear",
+    "Straight",
+    "High",
+    "Up#sharedassets3.assets:159",
+    "Destroy#sharedassets3.assets:155"
+   ],
+   "identifiers": [
+    "Empty",
+    "Appear",
+    "Straight",
+    "High",
+    "Up",
+    "Destroy"
+   ],
+   "defaultAnimation": "Empty",
+   "usedBy": [
+    "level3:Enemies/Ground Turret (1)/Renderer",
+    "level3:Enemies/Ground Turret (2)/Renderer",
+    "level3:Enemies/Ground Turret/Renderer"
+   ],
+   "alias": "Ground Turret"
+  },
+  "Core Controller": {
+   "asset": "sharedassets3.assets:160",
+   "animations": [
+    "Core Glowing",
+    "Core Destroy"
+   ],
+   "identifiers": [
+    "Glowing",
+    "Destroy"
+   ],
+   "defaultAnimation": "Glowing",
+   "usedBy": [
+    "level3:Enemies/Super Machine/Core Hitbox"
+   ],
+   "alias": "Super Machine"
+  },
+  "Left Shooter Controller": {
+   "asset": "sharedassets3.assets:166",
+   "animations": [
+    "L Shooter Idle",
+    "L Shooter Shoot",
+    "L Shooter Destroy"
+   ],
+   "identifiers": [
+    "Idle",
+    "Shoot",
+    "Destroy"
+   ],
+   "defaultAnimation": "Idle",
+   "usedBy": [
+    "level3:Enemies/Super Machine/L Shooter"
+   ],
+   "alias": "Super Machine"
+  },
+  "Right Shooter Controller": {
+   "asset": "sharedassets3.assets:170",
+   "animations": [
+    "R Shooter Idle",
+    "R Shooter Shoot",
+    "R Shooter Destroy"
+   ],
+   "identifiers": [
+    "Idle",
+    "Shoot",
+    "Destroy"
+   ],
+   "defaultAnimation": "Idle",
+   "usedBy": [
+    "level3:Enemies/Super Machine/R Shooter"
+   ],
+   "alias": "Super Machine"
+  },
+  "Controller2D#sharedassets3.assets:173": {
+   "asset": "sharedassets3.assets:173",
+   "animations": [
+    "Up#sharedassets3.assets:187",
+    "Right",
+    "Right Mid Low",
+    "Right Mid High",
+    "Right Low",
+    "Right High",
+    "Left",
+    "Left Mid Low",
+    "Left Mid High",
+    "Left Low",
+    "Left High",
+    "Down",
+    "Closed#sharedassets3.assets:171",
+    "Opening",
+    "Closing",
+    "Destroy#sharedassets3.assets:174"
+   ],
+   "identifiers": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ],
+   "defaultAnimation": "Up",
+   "usedBy": [
+    "level3:Enemies/Turret (2)/Renderer",
+    "level3:Enemies/Turret/Renderer",
+    "level3:Enemies/Turret (1)/Renderer",
+    "level3:Enemies/Turret (3)/Renderer",
+    "level3:Enemies/Turret (4)/Renderer"
+   ],
+   "alias": "Turret"
+  }
+ },
+ "users": [
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1190",
+   "gameObject": "Enemies/Thief (3)/Renderer",
+   "position": [
+    142.6936,
+    -3.2109
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1200",
+   "gameObject": "Enemies/Thief (1)/Renderer",
+   "position": [
+    122.0754,
+    2.7442
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1217",
+   "gameObject": "Enemies/Thief (2)/Renderer",
+   "position": [
+    116.6186,
+    0.9828
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1224",
+   "gameObject": "Enemies/Thief/Renderer",
+   "position": [
+    7.224,
+    0.7958
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1243",
+   "gameObject": "Enemies/Thief (6)/Renderer",
+   "position": [
+    108.3197,
+    -5.3767
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1248",
+   "gameObject": "Enemies/Thief (2)/Renderer",
+   "position": [
+    12.194,
+    0.9104
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1258",
+   "gameObject": "Enemies/Thief (8)/Renderer",
+   "position": [
+    160.1425,
+    -1.4192
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1268",
+   "gameObject": "Enemies/Thief (4)/Renderer",
+   "position": [
+    55.8033,
+    0.6395
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1286",
+   "gameObject": "Enemies/Thief (7)/Renderer",
+   "position": [
+    149.1366,
+    2.596
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1297",
+   "gameObject": "Enemies/Thief (1)/Renderer",
+   "position": [
+    9.764,
+    0.8497
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1307",
+   "gameObject": "Enemies/Thief (9)/Renderer",
+   "position": [
+    177.2757,
+    -1.4453
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1327",
+   "gameObject": "Enemies/Thief (5)/Renderer",
+   "position": [
+    40.214,
+    0.6639
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1337",
+   "gameObject": "Enemies/Thief (3)/Renderer",
+   "position": [
+    50.4277,
+    0.6395
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1338",
+   "gameObject": "Falcon Box (3)/Renderer",
+   "position": [
+    132.9925,
+    -4.007
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:149",
+   "animations": [
+    "Closed",
+    "Transition",
+    "Opened",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1342",
+   "gameObject": "Falcon Box (1)/Renderer",
+   "position": [
+    10.993,
+    -1.996
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:149",
+   "animations": [
+    "Closed",
+    "Transition",
+    "Opened",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1343",
+   "gameObject": "Falcon Box (2)/Renderer",
+   "position": [
+    88.998,
+    -1.988
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:149",
+   "animations": [
+    "Closed",
+    "Transition",
+    "Opened",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1363",
+   "gameObject": "Enemies/Soldier (2)/Renderer",
+   "position": [
+    70.1223,
+    0.6715
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1364",
+   "gameObject": "Enemies/Soldier/Renderer",
+   "position": [
+    10.061,
+    -5.3002
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1365",
+   "gameObject": "Enemies/Soldier Hiding (1)/Renderer",
+   "position": [
+    87.038,
+    2.4278
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1366",
+   "gameObject": "Enemies/Soldier (3)/Renderer",
+   "position": [
+    138.0981,
+    -1.321
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1367",
+   "gameObject": "Enemies/Soldier (1)/Renderer",
+   "position": [
+    192.402,
+    2.4301
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1368",
+   "gameObject": "Enemies/Soldier (1)/Renderer",
+   "position": [
+    30.1458,
+    -5.3532
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1369",
+   "gameObject": "Enemies/Soldier Hiding/Renderer",
+   "position": [
+    74.049,
+    0.4218
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1418",
+   "gameObject": "Enemies/Super Machine/R Shooter",
+   "position": [
+    193.003,
+    -0.2292
+   ],
+   "playFirstAnimation": true,
+   "controller": "Right Shooter Controller",
+   "animations": [
+    "Idle",
+    "Shoot",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1434",
+   "gameObject": "Enemies/Turret (2)/Renderer",
+   "position": [
+    105.005,
+    -0.0057
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:173",
+   "animations": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1435",
+   "gameObject": "Enemies/Turret/Renderer",
+   "position": [
+    69.002,
+    -2.0002
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:173",
+   "animations": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1440",
+   "gameObject": "Enemies/Turret (1)/Renderer",
+   "position": [
+    93.006,
+    -0.0002
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:173",
+   "animations": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1441",
+   "gameObject": "Enemies/Ground Turret (1)/Renderer",
+   "position": [
+    127.001,
+    2.9978
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:154",
+   "animations": [
+    "Empty",
+    "Appear",
+    "Straight",
+    "High",
+    "Up",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1442",
+   "gameObject": "Enemies/Turret (3)/Renderer",
+   "position": [
+    177.009,
+    -3.9972
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:173",
+   "animations": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1443",
+   "gameObject": "Enemies/Ground Turret (2)/Renderer",
+   "position": [
+    163.002,
+    -1.0052
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:154",
+   "animations": [
+    "Empty",
+    "Appear",
+    "Straight",
+    "High",
+    "Up",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1446",
+   "gameObject": "Enemies/Ground Turret/Renderer",
+   "position": [
+    118.996,
+    -3.0062
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:154",
+   "animations": [
+    "Empty",
+    "Appear",
+    "Straight",
+    "High",
+    "Up",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1449",
+   "gameObject": "Enemies/Turret (4)/Renderer",
+   "position": [
+    185.0007,
+    -4.0052
+   ],
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets3.assets:173",
+   "animations": [
+    "Up",
+    "Right",
+    "RightMidLow",
+    "RightMidHigh",
+    "RightLow",
+    "RightHigh",
+    "Left",
+    "LeftMidLow",
+    "LeftMidHigh",
+    "LeftLow",
+    "LeftHigh",
+    "Down",
+    "Closed",
+    "Opening",
+    "Closing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1459",
+   "gameObject": "Enemies/Super Machine/L Shooter",
+   "position": [
+    191.63,
+    -0.2932
+   ],
+   "playFirstAnimation": true,
+   "controller": "Left Shooter Controller",
+   "animations": [
+    "Idle",
+    "Shoot",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "level3",
+   "component": "Animator2D",
+   "ref": "level3:1463",
+   "gameObject": "Enemies/Super Machine/Core Hitbox",
+   "position": [
+    192.249,
+    -3.0162
+   ],
+   "playFirstAnimation": true,
+   "controller": "Core Controller",
+   "animations": [
+    "Glowing",
+    "Destroy"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2D",
+   "ref": "sharedassets0.assets:379",
+   "gameObject": "Player/Body Renderer",
+   "position": null,
+   "playFirstAnimation": true,
+   "controller": "Controller Body",
+   "animations": [
+    "Aim Straight",
+    "Run",
+    "Jump",
+    "Falling",
+    "Shoot High",
+    "Shoot Low",
+    "Shoot Straight",
+    "Shoot Up",
+    "Shoot Down",
+    "Aim High",
+    "Aim Low",
+    "Aim Up",
+    "Aim Down",
+    "Empty",
+    "Water GetUp"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2D",
+   "ref": "sharedassets0.assets:382",
+   "gameObject": "Player/Legs Renderer",
+   "position": null,
+   "playFirstAnimation": true,
+   "controller": "Controller Legs",
+   "animations": [
+    "Idle",
+    "Run",
+    "Jump",
+    "Falling",
+    "Aim Down",
+    "Shoot Down",
+    "Empty",
+    "Dive",
+    "Splash",
+    "Water Idle",
+    "Water Shoot High",
+    "Water Shoot Straight",
+    "Water Shoot Up",
+    "Water Aim High",
+    "Water Aim Up",
+    "Water GetUp",
+    "Dead"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2D",
+   "ref": "sharedassets0.assets:383",
+   "gameObject": "Thief/Renderer",
+   "position": null,
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:367",
+   "animations": [
+    "Run",
+    "Jump",
+    "Dead",
+    "Splash",
+    "Empty"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2D",
+   "ref": "sharedassets0.assets:384",
+   "gameObject": "Soldier/Renderer",
+   "position": null,
+   "playFirstAnimation": true,
+   "controller": "Controller2D#sharedassets0.assets:362",
+   "animations": [
+    "Aim High",
+    "Aim Straight",
+    "Aim Low",
+    "Shoot High",
+    "Shoot Straight",
+    "Shoot Low",
+    "Dead"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2DNoController",
+   "ref": "sharedassets0.assets:412",
+   "gameObject": "Big Explosion",
+   "position": null,
+   "playFirstAnimation": true,
+   "animations": [
+    "Big Explosion"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets0.assets)",
+   "component": "Animator2DNoController",
+   "ref": "sharedassets0.assets:413",
+   "gameObject": "Small Explosion",
+   "position": null,
+   "playFirstAnimation": true,
+   "animations": [
+    "Small Explosion"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets3.assets)",
+   "component": "Animator2DNoController",
+   "ref": "sharedassets3.assets:209",
+   "gameObject": "Huge Explosion/Big Explosion",
+   "position": null,
+   "playFirstAnimation": true,
+   "animations": [
+    "Big Explosion"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets3.assets)",
+   "component": "Animator2DNoController",
+   "ref": "sharedassets3.assets:211",
+   "gameObject": "Huge Explosion/Big Explosion (2)",
+   "position": null,
+   "playFirstAnimation": true,
+   "animations": [
+    "Big Explosion Delayed 2"
+   ]
+  },
+  {
+   "source": "prefab (sharedassets3.assets)",
+   "component": "Animator2DNoController",
+   "ref": "sharedassets3.assets:212",
+   "gameObject": "Huge Explosion/Big Explosion (1)",
+   "position": null,
+   "playFirstAnimation": true,
+   "animations": [
+    "Big Explosion Delayed 1"
+   ]
+  }
+ ],
+ "sprites": {
+  "Explosion b 3": {
+   "name": "Explosion b 3",
+   "rect": [
+    219.0,
+    208.0,
+    15.0,
+    18.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion b 1": {
+   "name": "Explosion b 1",
+   "rect": [
+    159.0,
+    208.0,
+    30.0,
+    30.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion b 2": {
+   "name": "Explosion b 2",
+   "rect": [
+    192.0,
+    208.0,
+    23.0,
+    27.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion c 1": {
+   "name": "Explosion c 1",
+   "rect": [
+    200.0,
+    258.0,
+    6.0,
+    6.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion c 2": {
+   "name": "Explosion c 2",
+   "rect": [
+    208.0,
+    258.0,
+    10.0,
+    10.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion c 3": {
+   "name": "Explosion c 3",
+   "rect": [
+    220.0,
+    258.0,
+    14.0,
+    14.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Aim High": {
+   "name": "Aim High",
+   "rect": [
+    0.0,
+    363.0,
+    18.0,
+    16.0
+   ],
+   "pivot": [
+    0.3333333432674408,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Shoot High": {
+   "name": "Shoot High",
+   "rect": [
+    40.0,
+    361.0,
+    18.0,
+    16.0
+   ],
+   "pivot": [
+    0.3333333432674408,
+    0.0555555559694767
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Aim Low": {
+   "name": "Aim Low",
+   "rect": [
+    0.0,
+    286.0,
+    22.0,
+    21.0
+   ],
+   "pivot": [
+    0.3636363744735718,
+    0.2380952388048172
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Shoot Low": {
+   "name": "Shoot Low",
+   "rect": [
+    0.0,
+    249.0,
+    22.0,
+    21.0
+   ],
+   "pivot": [
+    0.3636363744735718,
+    0.2857142984867096
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Aim Straight": {
+   "name": "Aim Straight",
+   "rect": [
+    0.0,
+    505.0,
+    24.0,
+    23.0
+   ],
+   "pivot": [
+    0.3125,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Aim Up": {
+   "name": "Aim Up",
+   "rect": [
+    48.0,
+    505.0,
+    15.0,
+    23.0
+   ],
+   "pivot": [
+    0.4000000059604645,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 5": {
+   "name": "Body Run 5",
+   "rect": [
+    76.0,
+    470.0,
+    18.0,
+    16.0
+   ],
+   "pivot": [
+    0.5277777910232544,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 1": {
+   "name": "Body Run 1",
+   "rect": [
+    0.0,
+    470.0,
+    18.0,
+    16.0
+   ],
+   "pivot": [
+    0.4166666567325592,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 2": {
+   "name": "Body Run 2",
+   "rect": [
+    18.0,
+    470.0,
+    19.0,
+    16.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 3": {
+   "name": "Body Run 3",
+   "rect": [
+    38.0,
+    468.0,
+    20.0,
+    16.0
+   ],
+   "pivot": [
+    0.5,
+    0.125
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 4": {
+   "name": "Body Run 4",
+   "rect": [
+    59.0,
+    470.0,
+    16.0,
+    16.0
+   ],
+   "pivot": [
+    0.46875,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Body Run 6": {
+   "name": "Body Run 6",
+   "rect": [
+    95.0,
+    468.0,
+    20.0,
+    16.0
+   ],
+   "pivot": [
+    0.5,
+    0.125
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Shoot Straight": {
+   "name": "Shoot Straight",
+   "rect": [
+    24.0,
+    504.0,
+    24.0,
+    24.0
+   ],
+   "pivot": [
+    0.3125,
+    0.0416666679084301
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Shoot Up": {
+   "name": "Shoot Up",
+   "rect": [
+    63.0,
+    504.0,
+    15.0,
+    24.0
+   ],
+   "pivot": [
+    0.4000000059604645,
+    0.0416666679084301
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Aim Down": {
+   "name": "Aim Down",
+   "rect": [
+    78.0,
+    487.0,
+    33.0,
+    16.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dead 1": {
+   "name": "Dead 1",
+   "rect": [
+    145.0,
+    415.0,
+    21.0,
+    23.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dead 2": {
+   "name": "Dead 2",
+   "rect": [
+    122.0,
+    415.0,
+    23.0,
+    23.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dead 3": {
+   "name": "Dead 3",
+   "rect": [
+    101.0,
+    415.0,
+    21.0,
+    23.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dead 4": {
+   "name": "Dead 4",
+   "rect": [
+    78.0,
+    415.0,
+    23.0,
+    23.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dead 5": {
+   "name": "Dead 5",
+   "rect": [
+    166.0,
+    415.0,
+    34.0,
+    23.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dive 1": {
+   "name": "Dive 1",
+   "rect": [
+    18.0,
+    209.0,
+    16.0,
+    7.0
+   ],
+   "pivot": [
+    0.53125,
+    0.4285714328289032
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Dive 2": {
+   "name": "Dive 2",
+   "rect": [
+    35.0,
+    209.0,
+    16.0,
+    8.0
+   ],
+   "pivot": [
+    0.53125,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 5": {
+   "name": "Legs Run 5",
+   "rect": [
+    76.0,
+    449.0,
+    18.0,
+    19.0
+   ],
+   "pivot": [
+    0.5277777910232544,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Idle": {
+   "name": "Legs Idle",
+   "rect": [
+    0.0,
+    486.0,
+    24.0,
+    19.0
+   ],
+   "pivot": [
+    0.3125,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Jump 1": {
+   "name": "Jump 1",
+   "rect": [
+    115.0,
+    442.0,
+    20.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Jump 2": {
+   "name": "Jump 2",
+   "rect": [
+    135.0,
+    442.0,
+    20.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Jump 3": {
+   "name": "Jump 3",
+   "rect": [
+    155.0,
+    442.0,
+    20.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Jump 4": {
+   "name": "Jump 4",
+   "rect": [
+    175.0,
+    442.0,
+    20.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 1": {
+   "name": "Legs Run 1",
+   "rect": [
+    0.0,
+    449.0,
+    18.0,
+    19.0
+   ],
+   "pivot": [
+    0.4166666567325592,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 2": {
+   "name": "Legs Run 2",
+   "rect": [
+    18.0,
+    449.0,
+    19.0,
+    19.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 3": {
+   "name": "Legs Run 3",
+   "rect": [
+    38.0,
+    449.0,
+    20.0,
+    19.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 4": {
+   "name": "Legs Run 4",
+   "rect": [
+    59.0,
+    449.0,
+    16.0,
+    19.0
+   ],
+   "pivot": [
+    0.46875,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Legs Run 6": {
+   "name": "Legs Run 6",
+   "rect": [
+    95.0,
+    449.0,
+    20.0,
+    19.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Shoot Down": {
+   "name": "Shoot Down",
+   "rect": [
+    111.0,
+    486.0,
+    33.0,
+    16.0
+   ],
+   "pivot": [
+    0.5,
+    0.0625
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Splash": {
+   "name": "Splash",
+   "rect": [
+    1.0,
+    205.0,
+    16.0,
+    15.0
+   ],
+   "pivot": [
+    0.53125,
+    0.4000000059604645
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Aim High": {
+   "name": "Water Aim High",
+   "rect": [
+    112.0,
+    183.0,
+    19.0,
+    18.0
+   ],
+   "pivot": [
+    0.44736841320991516,
+    0.1666666716337204
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Aim High 2": {
+   "name": "Water Aim High 2",
+   "rect": [
+    320.0,
+    183.0,
+    19.0,
+    18.0
+   ],
+   "pivot": [
+    0.44736841320991516,
+    -0.0555555559694767
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Aim Up": {
+   "name": "Water Aim Up",
+   "rect": [
+    132.0,
+    183.0,
+    17.0,
+    28.0
+   ],
+   "pivot": [
+    0.5,
+    0.1071428582072258
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Aim Up 2": {
+   "name": "Water Aim Up 2",
+   "rect": [
+    340.0,
+    183.0,
+    17.0,
+    28.0
+   ],
+   "pivot": [
+    0.5,
+    -0.0357142873108387
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Idle 1": {
+   "name": "Water Idle 1",
+   "rect": [
+    52.0,
+    209.0,
+    16.0,
+    15.0
+   ],
+   "pivot": [
+    0.53125,
+    0.20000000298023224
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Idle 2": {
+   "name": "Water Idle 2",
+   "rect": [
+    69.0,
+    209.0,
+    16.0,
+    16.0
+   ],
+   "pivot": [
+    0.53125,
+    0.1875
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Shooting High 1": {
+   "name": "Water Shooting High 1",
+   "rect": [
+    112.0,
+    212.0,
+    19.0,
+    17.0
+   ],
+   "pivot": [
+    0.44736841320991516,
+    0.1764705926179886
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Aim Straight": {
+   "name": "Water Aim Straight",
+   "rect": [
+    86.0,
+    183.0,
+    25.0,
+    17.0
+   ],
+   "pivot": [
+    0.3400000035762787,
+    0.1764705926179886
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Shooting Straight 1": {
+   "name": "Water Shooting Straight 1",
+   "rect": [
+    86.0,
+    212.0,
+    25.0,
+    16.0
+   ],
+   "pivot": [
+    0.3400000035762787,
+    0.1875
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Water Shooting Up 1": {
+   "name": "Water Shooting Up 1",
+   "rect": [
+    132.0,
+    212.0,
+    17.0,
+    27.0
+   ],
+   "pivot": [
+    0.5,
+    0.1111111119389534
+   ],
+   "ppu": 16.0,
+   "texture": "NES - Contra - Bill Rizer & Lance Bean"
+  },
+  "Soldier High 2": {
+   "name": "Soldier High 2",
+   "rect": [
+    253.0,
+    479.0,
+    18.0,
+    39.0
+   ],
+   "pivot": [
+    0.4444444477558136,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Soldier Low": {
+   "name": "Soldier Low",
+   "rect": [
+    154.0,
+    479.0,
+    24.0,
+    39.0
+   ],
+   "pivot": [
+    0.3333333432674408,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Soldier Straight 2": {
+   "name": "Soldier Straight 2",
+   "rect": [
+    206.0,
+    479.0,
+    24.0,
+    39.0
+   ],
+   "pivot": [
+    0.3333333432674408,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Soldier High 1": {
+   "name": "Soldier High 1",
+   "rect": [
+    232.0,
+    479.0,
+    18.0,
+    39.0
+   ],
+   "pivot": [
+    0.4444444477558136,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Explosion a 2": {
+   "name": "Explosion a 2",
+   "rect": [
+    262.0,
+    208.0,
+    28.0,
+    28.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion a 3": {
+   "name": "Explosion a 3",
+   "rect": [
+    293.0,
+    208.0,
+    32.0,
+    32.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Soldier Straight 1": {
+   "name": "Soldier Straight 1",
+   "rect": [
+    180.0,
+    479.0,
+    24.0,
+    39.0
+   ],
+   "pivot": [
+    0.3333333432674408,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Thief Jump": {
+   "name": "Thief Jump",
+   "rect": [
+    260.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Explosion a 1": {
+   "name": "Explosion a 1",
+   "rect": [
+    236.0,
+    208.0,
+    24.0,
+    24.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Thief Run 1": {
+   "name": "Thief Run 1",
+   "rect": [
+    154.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Thief Run 2": {
+   "name": "Thief Run 2",
+   "rect": [
+    174.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Thief Run 3": {
+   "name": "Thief Run 3",
+   "rect": [
+    196.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Thief Run 4": {
+   "name": "Thief Run 4",
+   "rect": [
+    217.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "Thief Run 5": {
+   "name": "Thief Run 5",
+   "rect": [
+    237.0,
+    443.0,
+    18.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet3"
+  },
+  "ContraSheet4_0": {
+   "name": "ContraSheet4_0",
+   "rect": [
+    38.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_4": {
+   "name": "ContraSheet4_4",
+   "rect": [
+    174.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_5": {
+   "name": "ContraSheet4_5",
+   "rect": [
+    208.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_6": {
+   "name": "ContraSheet4_6",
+   "rect": [
+    242.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_1": {
+   "name": "ContraSheet4_1",
+   "rect": [
+    72.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_2": {
+   "name": "ContraSheet4_2",
+   "rect": [
+    106.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_3": {
+   "name": "ContraSheet4_3",
+   "rect": [
+    140.0,
+    435.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_59": {
+   "name": "ContraSheet4_59",
+   "rect": [
+    72.0,
+    164.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_55": {
+   "name": "ContraSheet4_55",
+   "rect": [
+    106.0,
+    198.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_51": {
+   "name": "ContraSheet4_51",
+   "rect": [
+    140.0,
+    232.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "Explosion b pivot 3": {
+   "name": "Explosion b pivot 3",
+   "rect": [
+    364.0,
+    432.0,
+    15.0,
+    18.0
+   ],
+   "pivot": [
+    0.5,
+    -0.3333333432674408
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion b pivot 1": {
+   "name": "Explosion b pivot 1",
+   "rect": [
+    304.0,
+    432.0,
+    30.0,
+    30.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "Explosion b pivot 2": {
+   "name": "Explosion b pivot 2",
+   "rect": [
+    337.0,
+    432.0,
+    23.0,
+    27.0
+   ],
+   "pivot": [
+    0.5,
+    -0.0555555559694767
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet8"
+  },
+  "ContraSheet4_52": {
+   "name": "ContraSheet4_52",
+   "rect": [
+    174.0,
+    232.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_57": {
+   "name": "ContraSheet4_57",
+   "rect": [
+    174.0,
+    198.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_62": {
+   "name": "ContraSheet4_62",
+   "rect": [
+    174.0,
+    164.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_56": {
+   "name": "ContraSheet4_56",
+   "rect": [
+    140.0,
+    198.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_61": {
+   "name": "ContraSheet4_61",
+   "rect": [
+    140.0,
+    164.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_53": {
+   "name": "ContraSheet4_53",
+   "rect": [
+    208.0,
+    232.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_58": {
+   "name": "ContraSheet4_58",
+   "rect": [
+    208.0,
+    198.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_63": {
+   "name": "ContraSheet4_63",
+   "rect": [
+    208.0,
+    164.0,
+    34.0,
+    33.0
+   ],
+   "pivot": [
+    0.5,
+    0.0
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet6_1": {
+   "name": "ContraSheet6_1",
+   "rect": [
+    219.0,
+    1167.0,
+    24.0,
+    31.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_2": {
+   "name": "ContraSheet6_2",
+   "rect": [
+    247.0,
+    1167.0,
+    24.0,
+    31.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_3": {
+   "name": "ContraSheet6_3",
+   "rect": [
+    275.0,
+    1167.0,
+    24.0,
+    31.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_5": {
+   "name": "ContraSheet6_5",
+   "rect": [
+    201.0,
+    1167.0,
+    14.0,
+    6.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_6": {
+   "name": "ContraSheet6_6",
+   "rect": [
+    201.0,
+    1188.0,
+    14.0,
+    6.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_4": {
+   "name": "ContraSheet6_4",
+   "rect": [
+    201.0,
+    1174.0,
+    14.0,
+    6.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet6_7": {
+   "name": "ContraSheet6_7",
+   "rect": [
+    201.0,
+    1195.0,
+    14.0,
+    6.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet6"
+  },
+  "ContraSheet4_26": {
+   "name": "ContraSheet4_26",
+   "rect": [
+    38.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_29": {
+   "name": "ContraSheet4_29",
+   "rect": [
+    140.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_32": {
+   "name": "ContraSheet4_32",
+   "rect": [
+    242.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_17": {
+   "name": "ContraSheet4_17",
+   "rect": [
+    38.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_41": {
+   "name": "ContraSheet4_41",
+   "rect": [
+    38.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_44": {
+   "name": "ContraSheet4_44",
+   "rect": [
+    140.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_47": {
+   "name": "ContraSheet4_47",
+   "rect": [
+    242.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_7": {
+   "name": "ContraSheet4_7",
+   "rect": [
+    4.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_10": {
+   "name": "ContraSheet4_10",
+   "rect": [
+    106.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_13": {
+   "name": "ContraSheet4_13",
+   "rect": [
+    208.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_40": {
+   "name": "ContraSheet4_40",
+   "rect": [
+    4.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_43": {
+   "name": "ContraSheet4_43",
+   "rect": [
+    106.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_46": {
+   "name": "ContraSheet4_46",
+   "rect": [
+    208.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_16": {
+   "name": "ContraSheet4_16",
+   "rect": [
+    4.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_19": {
+   "name": "ContraSheet4_19",
+   "rect": [
+    106.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_22": {
+   "name": "ContraSheet4_22",
+   "rect": [
+    208.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_34": {
+   "name": "ContraSheet4_34",
+   "rect": [
+    4.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_36": {
+   "name": "ContraSheet4_36",
+   "rect": [
+    106.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_38": {
+   "name": "ContraSheet4_38",
+   "rect": [
+    208.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_25": {
+   "name": "ContraSheet4_25",
+   "rect": [
+    4.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_28": {
+   "name": "ContraSheet4_28",
+   "rect": [
+    106.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_31": {
+   "name": "ContraSheet4_31",
+   "rect": [
+    208.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_9": {
+   "name": "ContraSheet4_9",
+   "rect": [
+    72.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_12": {
+   "name": "ContraSheet4_12",
+   "rect": [
+    174.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_15": {
+   "name": "ContraSheet4_15",
+   "rect": [
+    276.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_42": {
+   "name": "ContraSheet4_42",
+   "rect": [
+    72.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_45": {
+   "name": "ContraSheet4_45",
+   "rect": [
+    174.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_48": {
+   "name": "ContraSheet4_48",
+   "rect": [
+    276.0,
+    265.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_18": {
+   "name": "ContraSheet4_18",
+   "rect": [
+    72.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_21": {
+   "name": "ContraSheet4_21",
+   "rect": [
+    174.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_24": {
+   "name": "ContraSheet4_24",
+   "rect": [
+    276.0,
+    367.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_35": {
+   "name": "ContraSheet4_35",
+   "rect": [
+    72.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_37": {
+   "name": "ContraSheet4_37",
+   "rect": [
+    174.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_39": {
+   "name": "ContraSheet4_39",
+   "rect": [
+    276.0,
+    299.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_27": {
+   "name": "ContraSheet4_27",
+   "rect": [
+    72.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_30": {
+   "name": "ContraSheet4_30",
+   "rect": [
+    174.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_33": {
+   "name": "ContraSheet4_33",
+   "rect": [
+    276.0,
+    333.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_8": {
+   "name": "ContraSheet4_8",
+   "rect": [
+    38.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_11": {
+   "name": "ContraSheet4_11",
+   "rect": [
+    140.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  },
+  "ContraSheet4_14": {
+   "name": "ContraSheet4_14",
+   "rect": [
+    242.0,
+    401.0,
+    34.0,
+    34.0
+   ],
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "ppu": 16.0,
+   "texture": "ContraSheet4"
+  }
+ }
+}
