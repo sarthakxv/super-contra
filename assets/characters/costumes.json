@@ -1,0 +1,14 @@
+{
+  "viper": {
+    "pants": [73, 112, 66], "trim": [186, 205, 111], "shade": [123, 65, 42], "skin": [226, 167, 116],
+    "headgear": "beret", "hat": "#547c45", "highlight": "#b6ce7a"
+  },
+  "ember": {
+    "pants": [147, 62, 37], "trim": [255, 183, 74], "shade": [126, 61, 37], "skin": [239, 177, 127],
+    "headgear": "hair", "hat": "#a84b21", "highlight": "#f9a743"
+  },
+  "ghost": {
+    "pants": [60, 74, 87], "trim": [161, 198, 203], "shade": [107, 113, 120], "skin": [202, 206, 195],
+    "headgear": "helmet", "hat": "#a5b9b1", "highlight": "#e0e8cf"
+  }
+}

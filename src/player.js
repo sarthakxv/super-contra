@@ -8,6 +8,8 @@ import { overlapGround, LAYER } from "./world.js";
 import { drawSprite, camera, HALF_H, getCtx } from "./render.js";
 import { Hitbox } from "./combat.js";
 import { Shooter, spawnPlayerBullet } from "./bullets.js";
+import { settings } from "./settings.js";
+import { characterSprite } from "./characters.js";
 
 export const State = {
   Idle: 0, Moving: 1, Jumping: 2, Falling: 3, Splash: 4, Dive: 5,
@@ -36,6 +38,7 @@ export class Player {
   constructor(game, index, input, x, y) {
     this.game = game;
     this.index = index;
+    this.character = settings.characters[index];
     this.input = input;
     this.alive = true;
     this.order = 50;
@@ -329,9 +332,10 @@ export class Player {
     const bx = this.bodyRenderer.lx, by = this.bodyRenderer.ly;
     // Player 2 gets a hue shift (the Unity build tinted players via UI.ColorSelection).
     const ctx = getCtx();
-    if (this.index === 1) ctx.filter = "hue-rotate(140deg)";
-    if (this.legsAnim.sprite) drawSprite(this.legsAnim.sprite, this.x, this.y, this.flip);
-    if (this.bodyAnim.sprite) drawSprite(this.bodyAnim.sprite, this.x + (this.flip ? -bx : bx), this.y + by, this.flip);
+    if (this.index === 1 && this.character === "commando") ctx.filter = "hue-rotate(140deg)";
+    const sprite = (name) => characterSprite(this.character, name, this.index === 1);
+    if (this.legsAnim.sprite) drawSprite(sprite(this.legsAnim.sprite), this.x, this.y, this.flip);
+    if (this.bodyAnim.sprite) drawSprite(sprite(this.bodyAnim.sprite), this.x + (this.flip ? -bx : bx), this.y + by, this.flip);
     ctx.filter = "none";
   }
 }

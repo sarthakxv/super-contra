@@ -16,6 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="canonical" href="https://super-contra.pages.dev/">
 <link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="customize.css">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -81,16 +82,54 @@
 <script>
   // Same integer scale as render.js fit(), applied before the modules load so the CRT line doesn't resize mid-warm-up.
   (function (c) {
-    var s = Math.max(1, Math.floor(Math.min(innerWidth / 256, (innerHeight - 60) / 192)));
+    var s = Math.max(1, Math.floor(Math.min((innerWidth - 24) / 256, (innerHeight - 140) / 192)));
     c.style.width = 256 * s + "px";
     c.style.height = 192 * s + "px";
   })(document.getElementById("screen"));
 </script>
+<div class="game-actions">
+  <button id="resume-button" type="button" hidden>Resume game</button>
+  <button id="customize-button" type="button" disabled>Customize</button>
+</div>
+<p id="settings-feedback" role="status" hidden></p>
 <div id="help">
   <b>P1</b> arrows · <b>Z</b> fire · <b>X</b> jump &nbsp;|&nbsp;
   <b>P2</b> WASD · <b>F</b> fire · <b>G</b> jump &nbsp;|&nbsp;
   gamepads supported · <b>Enter/Esc</b> start/pause · <b>F2</b> colliders · <b>M</b> mute
 </div>
+<dialog id="customize" aria-labelledby="customize-title">
+  <header class="customize-heading">
+    <div><span class="eyebrow">Field setup / Super Contra</span><h1 id="customize-title">Customize</h1></div>
+    <span class="panel-number" aria-hidden="true">READY YOUR NEXT RUN</span>
+  </header>
+  <div class="customize-tabs" role="tablist" aria-label="Customization">
+    <button id="controls-tab" type="button" role="tab" aria-selected="true" aria-controls="controls-panel" data-tab="controls">01 / Controls</button>
+    <button id="characters-tab" type="button" role="tab" aria-selected="false" aria-controls="characters-panel" tabindex="-1" data-tab="characters">02 / Characters</button>
+  </div>
+  <div class="customize-content">
+    <div class="player-selector" role="group" aria-label="Player to customize">
+      <button type="button" data-player="0" aria-pressed="true">Player 1</button>
+      <button type="button" data-player="1" aria-pressed="false">Player 2</button>
+      <span id="player-caption">Editing Player 1</span>
+    </div>
+    <section id="controls-panel" role="tabpanel" aria-labelledby="controls-tab" tabindex="0">
+      <p class="panel-description">Your keyboard. Your layout. Select a binding and press a new key. Each key belongs to one action across both players.</p>
+      <div id="control-bindings" class="binding-grid"></div>
+      <p class="reserved-keys">Reserved: Enter / Esc · start &amp; pause &nbsp; M · mute &nbsp; F2 · debug<br>Gamepads use the original button layout.</p>
+    </section>
+    <section id="characters-panel" role="tabpanel" aria-labelledby="characters-tab" tabindex="0" hidden>
+      <p id="character-notice" class="panel-description"></p>
+      <div id="character-roster" class="character-roster" role="group" aria-label="Character roster"></div>
+      <p class="cosmetic-note">All fighters share the same abilities. Player 2 wears an alternate palette.</p>
+    </section>
+    <p id="customize-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+  <footer class="customize-footer">
+    <button id="customize-reset" type="button">Restore defaults</button>
+    <button id="customize-cancel" type="button">Cancel</button>
+    <button id="customize-save" type="button">Save changes</button>
+  </footer>
+</dialog>
 <script type="module" src="src/main.js"></script>
 </body>
 </html>

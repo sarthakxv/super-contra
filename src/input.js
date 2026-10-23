@@ -1,27 +1,48 @@
 // Keyboard + gamepad input mapped onto the original "Main" action map:
 // Horizontal/Vertical axes, B (fire, Z) and A (jump, X), Start (Esc).
 
-const KEYMAPS = [
-  { left: "ArrowLeft", right: "ArrowRight", up: "ArrowUp", down: "ArrowDown", b: "KeyZ", a: "KeyX" },
-  { left: "KeyA", right: "KeyD", up: "KeyW", down: "KeyS", b: "KeyF", a: "KeyG" },
-];
+import { settings } from "./settings.js";
 
 const held = new Set();
 const pressedThisFrame = new Set();
+const players = new Set();
+let suspended = false;
+
+export function clearInput() {
+  held.clear();
+  pressedThisFrame.clear();
+  for (const player of players) player.reset();
+}
+
+export function suspendInput(value) {
+  suspended = value;
+  clearInput();
+  // A held gamepad Start button must be released before it can pause again.
+  padStartHeld = true;
+}
 
 window.addEventListener("keydown", (e) => {
+  if (suspended || e.target.closest?.("input, select, textarea, dialog, [contenteditable]")) return;
+  if (e.target.closest?.("button") && !["Escape", "KeyM", "F2"].includes(e.code)) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (settings.bindings.some((keys) => Object.values(keys).includes(e.code)) || e.code === "Space") e.preventDefault();
   if (e.repeat) return;
   held.add(e.code);
   pressedThisFrame.add(e.code);
   if (e.code.startsWith("Arrow") || e.code === "Space") e.preventDefault();
 });
 window.addEventListener("keyup", (e) => held.delete(e.code));
-window.addEventListener("blur", () => held.clear());
+window.addEventListener("blur", clearInput);
 
 /** Per-player input state sampled once per fixed step. Mirrors the IInput interface. */
 export class PlayerInput {
   constructor(index) {
     this.index = index;
+    players.add(this);
+    this.reset();
+  }
+
+  reset() {
     this.horizontal = 0;
     this.vertical = 0;
     this.b = false; this.bDown = false;   // fire
@@ -30,7 +51,8 @@ export class PlayerInput {
   }
 
   sample() {
-    const k = KEYMAPS[this.index];
+    if (suspended) { this.reset(); return; }
+    const k = settings.bindings[this.index];
     let h = (held.has(k.right) ? 1 : 0) - (held.has(k.left) ? 1 : 0);
     let v = (held.has(k.up) ? 1 : 0) - (held.has(k.down) ? 1 : 0);
     let a = held.has(k.a), b = held.has(k.b);
@@ -53,7 +75,8 @@ export class PlayerInput {
   }
 
   get active() {
-    const k = KEYMAPS[this.index];
+    if (suspended) return false;
+    const k = settings.bindings[this.index];
     const pad = navigator.getGamepads ? navigator.getGamepads()[this.index] : null;
     return Object.values(k).some((c) => held.has(c)) || (pad && pad.buttons.some((b) => b.pressed));
   }
@@ -74,8 +97,8 @@ export function startPressed() {
   }
   const padDown = pad && !padStartHeld; // edge-triggered like keyboard presses
   padStartHeld = pad;
-  const k = consumePress("Enter") || consumePress("Escape");
-  return k || padDown;
+  const enter = consumePress("Enter"), escape = consumePress("Escape");
+  return !suspended && (enter || escape || padDown);
 }
 
 export function endFrame() { pressedThisFrame.clear(); }
