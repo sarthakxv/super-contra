@@ -72,21 +72,34 @@ function draw() {
   }
 }
 
+// Open the CRT (see index.html) once the warm-up line has finished stretching,
+// so a fast load doesn't cut it short.
+async function powerOn() {
+  const crt = document.getElementById("crt");
+  await Promise.all(crt.getAnimations().map((a) => a.finished)).catch(() => {});
+  document.body.classList.replace("crt-boot", "crt-on");
+}
+
 async function boot() {
   const canvas = document.getElementById("screen");
   initRender(canvas);
   await loadAssets();
   initAudio().catch((e) => console.warn("audio init", e));
   canvas.focus();
-  let acc = 0, last = performance.now();
+  let acc = 0, last = performance.now(), poweredOn = false;
   const frame = (now) => {
     acc += Math.min(0.25, (now - last) / 1000);
     last = now;
     while (acc >= STEP) { update(); acc -= STEP; }
     draw();
+    if (!poweredOn) { poweredOn = true; powerOn(); } // first frame has pixels now
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
 }
 
-boot().catch((e) => { console.error(e); document.body.append(String(e)); });
+boot().catch((e) => {
+  console.error(e);
+  document.body.classList.replace("crt-boot", "crt-on");
+  document.body.append(String(e));
+});
