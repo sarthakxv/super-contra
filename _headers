@@ -1,0 +1,12 @@
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/src/*
+  Cache-Control: no-cache
+/assets/*.json
+  Cache-Control: no-cache
+/assets/img/*
+  Cache-Control: public, max-age=86400
+/assets/audio/*
+  Cache-Control: public, max-age=86400
