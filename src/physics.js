@@ -1,5 +1,6 @@
 // Minimal Rigidbody2D emulation: semi-implicit Euler like Box2D
-// (v += g*dt; p += v*dt) with one-way landing on the tilemap ledges.
+// (v += g*dt; p += v*dt) landing on the tilemap ledges from above.
+// Physics2D.IgnoreLayerCollision is modelled per body via `ignore` (a Set of layers).
 
 import { landingLedge, ledgeUnder } from "./world.js";
 
@@ -17,19 +18,15 @@ export class Body {
     this.gravityScale = gravityScale;
     this.box = box;
     this.collides = collides;
-    this.ledge = null;        // ledge we're standing on
-    this.dropLedge = null;    // ledge we're currently falling through
-    this.passPlatforms = false;
+    this.ledge = null;          // collider we're resting on
+    this.ignore = new Set();    // ignored ground layers
   }
 
   get bottom() { return this.y + this.box.oy - this.box.h / 2; }
   get x0() { return this.x + this.box.ox - this.box.w / 2; }
   get x1() { return this.x + this.box.ox + this.box.w / 2; }
 
-  /** Start falling through the current platform (drop-down). */
-  dropThrough() {
-    if (this.ledge) { this.dropLedge = this.ledge; this.ledge = null; }
-  }
+  setIgnore(layer, on) { if (on) this.ignore.add(layer); else this.ignore.delete(layer); }
 
   step(dt) {
     this.vy += GRAVITY * this.gravityScale * dt;
@@ -38,12 +35,8 @@ export class Body {
     this.y += this.vy * dt;
     if (!this.collides) { this.ledge = null; return; }
 
-    // Release the drop-through ledge once fully below it.
-    if (this.dropLedge && this.bottom < this.dropLedge.bottom - 0.05) this.dropLedge = null;
-
     if (this.vy <= 0) {
-      const hit = landingLedge(this.x0, this.x1, prevBottom, this.bottom,
-        { skipPlatforms: this.passPlatforms, ignore: this.dropLedge });
+      const hit = landingLedge(this.x0, this.x1, prevBottom, this.bottom, this.ignore);
       if (hit) {
         this.y += hit.top - this.bottom;
         this.vy = 0;
@@ -51,8 +44,8 @@ export class Body {
         return;
       }
     }
-    // Walking off the end of a ledge.
-    if (this.ledge && (this.vy > 0 || !ledgeUnder(this.x0, this.x1, this.bottom))) this.ledge = null;
+    if (this.ledge && (this.vy > 0 || this.ignore.has(this.ledge.layer) ||
+        !ledgeUnder(this.x0, this.x1, this.bottom, this.ignore))) this.ledge = null;
   }
 
   get grounded() { return this.ledge !== null; }
@@ -61,4 +54,10 @@ export class Body {
 /** Axis-aligned box overlap test on world-space {x0,x1,y0,y1}. */
 export function overlaps(a, b) {
   return a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
+}
+
+/** World box for a collider at (x, y) with offset/size, mirrored when facing left. */
+export function worldBox(x, y, ox, oy, w, h, flip = false) {
+  const cx = x + (flip ? -ox : ox), cy = y + oy;
+  return { x0: cx - w / 2, x1: cx + w / 2, y0: cy - h / 2, y1: cy + h / 2 };
 }

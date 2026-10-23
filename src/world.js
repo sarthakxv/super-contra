@@ -33,7 +33,9 @@ export function buildWorld() {
       let start = xs[0], prev = xs[0];
       const flush = () => {
         const run = { x0: start, x1: prev + 1, top, bottom, layer: tm.layer };
-        (tm.layer === LAYER.Water ? water : ledges).push(run);
+        // Water is a solid collider too: the player stands on its surface while swimming.
+        ledges.push(run);
+        if (tm.layer === LAYER.Water) water.push(run);
       };
       for (let i = 1; i < xs.length; i++) {
         if (xs[i] !== prev + 1) { flush(); start = xs[i]; }
@@ -48,11 +50,10 @@ export function buildWorld() {
  * Find the highest ledge whose top is crossed by a falling box bottom between
  * prevBottom and newBottom (one-way: only from above). Returns ledge or null.
  */
-export function landingLedge(x0, x1, prevBottom, newBottom, { skipPlatforms = false, ignore = null } = {}) {
+export function landingLedge(x0, x1, prevBottom, newBottom, ignoreLayers = null) {
   let best = null;
   for (const l of ledges) {
-    if (skipPlatforms && l.layer === LAYER.Platform) continue;
-    if (l === ignore) continue;
+    if (ignoreLayers && ignoreLayers.has(l.layer)) continue;
     if (x1 <= l.x0 || x0 >= l.x1) continue;
     if (prevBottom >= l.top - 1e-4 && newBottom <= l.top) {
       if (!best || l.top > best.top) best = l;
@@ -62,13 +63,27 @@ export function landingLedge(x0, x1, prevBottom, newBottom, { skipPlatforms = fa
 }
 
 /** Ledge directly under a box bottom (standing check), within epsilon. */
-export function ledgeUnder(x0, x1, bottom, eps = 0.02) {
+export function ledgeUnder(x0, x1, bottom, ignoreLayers = null, eps = 0.02) {
   let best = null;
   for (const l of ledges) {
+    if (ignoreLayers && ignoreLayers.has(l.layer)) continue;
     if (x1 <= l.x0 || x0 >= l.x1) continue;
     if (Math.abs(bottom - l.top) <= eps && (!best || l.top > best.top)) best = l;
   }
   return best;
+}
+
+/**
+ * GroundChecker: ledges/water overlapping a trigger box, minus ignored layers.
+ * Returns the overlapping colliders, highest first.
+ */
+export function overlapGround(x0, x1, y0, y1, ignoreLayers = null) {
+  const hits = [];
+  for (const l of ledges) {
+    if (ignoreLayers && ignoreLayers.has(l.layer)) continue;
+    if (x1 > l.x0 && x0 < l.x1 && y1 > l.bottom && y0 < l.top) hits.push(l);
+  }
+  return hits.sort((a, b) => b.top - a.top);
 }
 
 export function inWater(x0, x1, y0, y1) {
