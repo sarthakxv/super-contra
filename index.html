@@ -6,7 +6,7 @@
 <title>Super Contra for Browser</title>
 <meta name="description" content="Contra stage 1 in your browser. Keyboard or gamepad, no install.">
 <meta name="application-name" content="Super Contra">
-<meta name="keywords" content="contra, super contra, browser game, run and gun, retro, html5, canvas, 2 player, gamepad">
+<meta name="keywords" content="contra, super contra, browser game, run and gun, retro, html5, canvas, gamepad">
 <meta name="robots" content="index, follow">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000">
@@ -94,26 +94,19 @@
 </div>
 <p id="settings-feedback" role="status" hidden></p>
 <div id="help">
-  <b>P1</b> arrows · <b>Z</b> fire · <b>X</b> jump &nbsp;|&nbsp;
-  <b>P2</b> WASD · <b>F</b> fire · <b>G</b> jump &nbsp;|&nbsp;
+  <b>arrows</b> move · <b>Z</b> fire · <b>X</b> jump &nbsp;|&nbsp;
   gamepads supported · <b>Enter/Esc</b> start/pause · <b>F2</b> colliders · <b>M</b> mute
 </div>
 <dialog id="customize" aria-labelledby="customize-title">
   <header class="customize-heading">
-    <button class="player-select" type="button" data-player="0" aria-pressed="true" aria-label="Customize Player 1">
-      <span class="player-label">1UP</span><span class="player-character">Commando</span>
-    </button>
+    <p class="player-badge"><span class="player-label">1UP</span><span id="player-character" class="player-character">Commando</span></p>
     <div class="setup-title"><span class="eyebrow">Super Contra</span><h1 id="customize-title">Player setup</h1></div>
-    <button class="player-select" type="button" data-player="1" aria-pressed="false" aria-label="Customize Player 2">
-      <span class="player-label">2UP</span><span class="player-character">Commando</span>
-    </button>
   </header>
   <div class="customize-tabs" role="tablist" aria-label="Customization">
     <button id="controls-tab" type="button" role="tab" aria-selected="true" aria-controls="controls-panel" data-tab="controls">Controls</button>
     <button id="characters-tab" type="button" role="tab" aria-selected="false" aria-controls="characters-panel" tabindex="-1" data-tab="characters">Characters</button>
   </div>
   <div class="customize-content">
-    <span id="player-caption" class="visually-hidden">Editing Player 1</span>
     <section id="controls-panel" role="tabpanel" aria-labelledby="controls-tab" tabindex="0">
       <p class="panel-description">Select a key to change</p>
       <div class="binding-heading" aria-hidden="true"><span>No.</span><span>Action</span><span>Key</span></div>
@@ -127,7 +120,7 @@
     <section id="characters-panel" role="tabpanel" aria-labelledby="characters-tab" tabindex="0" hidden>
       <p id="character-notice" class="panel-description"></p>
       <div id="character-roster" class="character-roster" role="group" aria-label="Character roster"></div>
-      <p class="cosmetic-note">Same abilities for every fighter<br>2UP uses an alternate palette</p>
+      <p class="cosmetic-note">Same abilities for every fighter</p>
     </section>
     <p id="customize-status" role="status" aria-live="polite" aria-atomic="true"></p>
   </div>

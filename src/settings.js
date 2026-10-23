@@ -5,14 +5,13 @@ export const ACTIONS = {
 };
 export const DEFAULT_BINDINGS = [
   { left: "ArrowLeft", right: "ArrowRight", up: "ArrowUp", down: "ArrowDown", b: "KeyZ", a: "KeyX" },
-  { left: "KeyA", right: "KeyD", up: "KeyW", down: "KeyS", b: "KeyF", a: "KeyG" },
 ];
 export const CHARACTER_IDS = ["commando", "viper", "ember", "ghost"];
 const RESERVED = new Set(["Enter", "Escape", "KeyM", "F2"]);
 const KEY_PATTERN = /^(Key[A-Z]|Digit[0-9]|Arrow(Left|Right|Up|Down)|Shift(Left|Right)|Space|Backspace|Tab|Backquote|Minus|Equal|BracketLeft|BracketRight|Backslash|Semicolon|Quote|Comma|Period|Slash|Numpad([0-9]|Add|Subtract|Multiply|Divide|Decimal)|Insert|Delete|Home|End|PageUp|PageDown)$/;
 
 export function defaultSettings() {
-  return { version: 1, bindings: DEFAULT_BINDINGS.map((keys) => ({ ...keys })), characters: ["commando", "commando"] };
+  return { version: 1, bindings: DEFAULT_BINDINGS.map((keys) => ({ ...keys })), characters: ["commando"] };
 }
 
 export function keyLabel(code) {
@@ -27,7 +26,7 @@ export function bindingError(bindings, player, action, code) {
   for (let i = 0; i < bindings.length; i++) {
     for (const [name, bound] of Object.entries(bindings[i])) {
       if (bound === code && !(i === player && name === action)) {
-        return `${keyLabel(code)} is already assigned to Player ${i + 1}: ${ACTIONS[name]}.`;
+        return `${keyLabel(code)} is already assigned to ${ACTIONS[name]}.`;
       }
     }
   }
@@ -37,9 +36,11 @@ export function bindingError(bindings, player, action, code) {
 export function normalizeSettings(value) {
   const result = defaultSettings();
   if (!value || value.version !== 1) return result;
-  if (Array.isArray(value.bindings) && value.bindings.length === 2 &&
-      value.bindings.every((keys) => keys && Object.keys(ACTIONS).every((action) => typeof keys[action] === "string"))) {
-    const bindings = value.bindings.map((keys) => Object.fromEntries(Object.keys(ACTIONS).map((action) => [action, keys[action]])));
+  // Saves from the two-player build carry a second entry; only player 1's is kept.
+  const saved = Array.isArray(value.bindings) ? value.bindings.slice(0, DEFAULT_BINDINGS.length) : [];
+  if (saved.length === DEFAULT_BINDINGS.length &&
+      saved.every((keys) => keys && Object.keys(ACTIONS).every((action) => typeof keys[action] === "string"))) {
+    const bindings = saved.map((keys) => Object.fromEntries(Object.keys(ACTIONS).map((action) => [action, keys[action]])));
     if (bindings.every((keys, player) => Object.entries(keys).every(([action, code]) => !bindingError(bindings, player, action, code)))) result.bindings = bindings;
   }
   if (Array.isArray(value.characters)) {

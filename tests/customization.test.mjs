@@ -3,24 +3,34 @@ import assert from "node:assert/strict";
 import { ACTIONS, SETTINGS_KEY, settings, defaultSettings, normalizeSettings, bindingError, keyLabel, loadSettings, saveSettings } from "../src/settings.js";
 
 test("settings reject corrupt bindings and unsupported saved versions", () => {
-  for (const value of [null, {}, { version: 2 }, { version: 1, bindings: [null, null] },
-    { version: 1, bindings: [{}, {}] }, { version: 1, bindings: [defaultSettings().bindings[0], null] }]) {
+  for (const value of [null, {}, { version: 2 }, { version: 1, bindings: [] }, { version: 1, bindings: [null] },
+    { version: 1, bindings: [{}] }]) {
     assert.deepEqual(normalizeSettings(value), defaultSettings());
   }
-  const duplicate = defaultSettings(); duplicate.bindings[0].b = "KeyF";
-  duplicate.characters = ["viper", "bad-id"];
+  const duplicate = defaultSettings(); duplicate.bindings[0].b = "KeyX";
+  duplicate.characters = ["bad-id"];
   assert.deepEqual(normalizeSettings(duplicate).bindings, defaultSettings().bindings);
-  assert.deepEqual(normalizeSettings(duplicate).characters, ["viper", "commando"]);
+  assert.deepEqual(normalizeSettings(duplicate).characters, ["commando"]);
   const reserved = defaultSettings(); reserved.bindings[0].a = "Enter";
   assert.deepEqual(normalizeSettings(reserved).bindings, defaultSettings().bindings);
 });
 
-test("binding validation detects cross-player conflicts and allows keeping the same key", () => {
+test("saves from the two-player build keep player 1's customization", () => {
+  const legacy = { version: 1, characters: ["ghost", "ember"], bindings: [
+    { ...defaultSettings().bindings[0], b: "KeyJ" },
+    { left: "KeyA", right: "KeyD", up: "KeyW", down: "KeyS", b: "KeyF", a: "KeyG" },
+  ] };
+  const migrated = normalizeSettings(legacy);
+  assert.deepEqual(migrated.bindings, [{ ...defaultSettings().bindings[0], b: "KeyJ" }]);
+  assert.deepEqual(migrated.characters, ["ghost"]);
+});
+
+test("binding validation detects conflicts and allows keeping the same key", () => {
   const { bindings } = defaultSettings();
   assert.equal(bindingError(bindings, 0, "b", "KeyZ"), "");
   assert.equal(bindingError(bindings, 0, "b", "KeyJ"), "");
-  assert.match(bindingError(bindings, 0, "b", "KeyF"), /Player 2: Fire/);
-  assert.match(bindingError(bindings, 0, "b", "KeyX"), /Player 1: Jump/);
+  assert.equal(bindingError(bindings, 0, "b", "KeyF"), "");
+  assert.match(bindingError(bindings, 0, "b", "KeyX"), /already assigned to Jump/);
   for (const code of ["Enter", "Escape", "KeyM", "F2"]) assert.match(bindingError(bindings, 0, "b", code), /reserved/);
   for (const code of ["MetaLeft", "F5", "", "<script>"]) assert.notEqual(bindingError(bindings, 0, "b", code), "");
 });
@@ -28,9 +38,9 @@ test("binding validation detects cross-player conflicts and allows keeping the s
 test("left and right Shift are distinct bindings that survive normalization", () => {
   const draft = defaultSettings();
   for (const code of ["ShiftLeft", "ShiftRight"]) assert.equal(bindingError(draft.bindings, 0, "a", code), "");
-  draft.bindings[0].a = "ShiftLeft"; draft.bindings[1].a = "ShiftRight";
+  draft.bindings[0].a = "ShiftLeft"; draft.bindings[0].b = "ShiftRight";
   assert.deepEqual(normalizeSettings(draft), draft);
-  assert.match(bindingError(draft.bindings, 1, "b", "ShiftLeft"), /Player 1: Jump/);
+  assert.match(bindingError(draft.bindings, 0, "up", "ShiftLeft"), /already assigned to Jump/);
   assert.equal(keyLabel("ShiftLeft"), "Left Shift");
   assert.equal(keyLabel("ShiftRight"), "Right Shift");
 });
@@ -38,7 +48,7 @@ test("left and right Shift are distinct bindings that survive normalization", ()
 test("settings round-trip without mutating a saved draft and survive denied storage", () => {
   const storage = new Map();
   globalThis.localStorage = { getItem: (key) => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) };
-  const draft = defaultSettings(); draft.bindings[0].b = "KeyJ"; draft.characters = ["ghost", "ember"];
+  const draft = defaultSettings(); draft.bindings[0].b = "KeyJ"; draft.characters = ["ghost"];
   assert.equal(saveSettings(draft), true);
   assert.deepEqual(loadSettings(), draft);
   draft.bindings[0].b = "KeyL";
