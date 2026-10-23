@@ -119,8 +119,8 @@ async function boot() {
     onClose({ saved, persisted }) {
       suspendInput(false); refreshActions(); refreshHelp();
       const feedback = document.getElementById("settings-feedback");
-      feedback.hidden = !saved;
-      feedback.textContent = persisted ? "Customization saved." : "Applied for this session. Browser storage is unavailable; these settings will reset after reload.";
+      feedback.hidden = !saved || persisted;
+      feedback.textContent = saved && !persisted ? "Applied for this session. Browser storage is unavailable; these settings will reset after reload." : "";
     },
   });
   const customizeButton = document.getElementById("customize-button");

@@ -14,7 +14,7 @@ export function initCustomization({ onOpen, onClose }) {
   const body = new Animator("Controller Body"), legs = new Animator("Controller Legs");
   body.play("Run"); legs.play("Run");
 
-  function message(text) { status.textContent = text; }
+  function message(text, error = false) { status.textContent = text; status.dataset.error = String(error); }
   function cancelCapture() {
     if (!capture) return;
     capture = null; renderControls();
@@ -22,9 +22,11 @@ export function initCustomization({ onOpen, onClose }) {
 
   function renderControls() {
     controls.replaceChildren();
-    for (const [action, label] of Object.entries(ACTIONS)) {
+    for (const [index, [action, label]] of Object.entries(ACTIONS).entries()) {
       const row = document.createElement("div"); row.className = "binding-row";
-      const name = document.createElement("span"); name.textContent = label;
+      const number = document.createElement("span"); number.className = "binding-number";
+      number.textContent = String(index + 1).padStart(2, "0"); number.setAttribute("aria-hidden", "true");
+      const name = document.createElement("span"); name.textContent = action === "b" ? "Shoot" : action === "down" ? "Duck/down" : label;
       const button = document.createElement("button"); button.type = "button";
       button.className = "key-binding";
       button.textContent = capture === action ? "Press a key…" : keyLabel(draft.bindings[player][action]);
@@ -36,23 +38,26 @@ export function initCustomization({ onOpen, onClose }) {
         controls.querySelector(`[data-action="${action}"]`).focus();
         message(`Press a key for ${label}. Escape cancels.`);
       });
-      row.append(name, button); controls.append(row);
+      row.append(number, name, button); controls.append(row);
     }
   }
 
   function renderRoster() {
+    for (const button of playerButtons) {
+      button.querySelector(".player-character").textContent = CHARACTERS.find((character) => character.id === draft.characters[Number(button.dataset.player)]).name;
+    }
     roster.replaceChildren();
     for (const character of CHARACTERS) {
       const card = document.createElement("button"); card.type = "button"; card.className = "character-card";
-      card.style.setProperty("--character-color", character.color); card.dataset.character = character.id;
+      card.dataset.character = character.id;
       card.setAttribute("aria-pressed", String(draft.characters[player] === character.id));
       card.setAttribute("aria-label", `${character.name}. ${character.detail}`);
-      const canvas = document.createElement("canvas"); canvas.width = 80; canvas.height = 64;
+      const canvas = document.createElement("canvas"); canvas.width = 64; canvas.height = 64;
       canvas.setAttribute("aria-hidden", "true");
       const name = document.createElement("strong"); name.textContent = character.name;
       const detail = document.createElement("span"); detail.className = "character-detail"; detail.textContent = character.detail;
       const selected = document.createElement("span"); selected.className = "character-selection";
-      selected.textContent = draft.characters[player] === character.id ? "Selected" : "Select fighter";
+      selected.textContent = draft.characters[player] === character.id ? "Ready" : "Select";
       card.append(canvas, name, detail, selected);
       card.addEventListener("click", () => {
         draft.characters[player] = character.id; renderRoster();
@@ -111,7 +116,7 @@ export function initCustomization({ onOpen, onClose }) {
     const error = event.ctrlKey || event.metaKey || event.altKey || (event.shiftKey && !isShift)
       ? "Use one key at a time. Left / Right Shift can be assigned on their own; key combinations are unsupported."
       : bindingError(draft.bindings, player, action, event.code);
-    if (error) { message(error); return; }
+    if (error) { message(error, true); return; }
     draft.bindings[player][action] = event.code;
     capture = null; renderControls();
     controls.querySelector(`[data-action="${action}"]`).focus();
@@ -142,12 +147,11 @@ export function initCustomization({ onOpen, onClose }) {
     for (const card of roster.children) {
       const canvas = card.querySelector("canvas"), ctx = canvas.getContext("2d");
       ctx.imageSmoothingEnabled = false; ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#3b4533"; ctx.fillRect(15, 56, 50, 1);
       if (player === 1 && card.dataset.character === "commando") ctx.filter = "hue-rotate(140deg)";
       for (const [frame, offset] of [[legs.sprite, 0], [body.sprite, 19]]) {
         if (!frame) continue;
         const s = assets.sprites[characterSprite(card.dataset.character, frame, player === 1)];
-        ctx.drawImage(assets.images[s.tex], s.x, s.y, s.w, s.h, Math.round(38 - s.px), Math.round(56 - offset - s.py), s.w, s.h);
+        ctx.drawImage(assets.images[s.tex], s.x, s.y, s.w, s.h, Math.round(30 - s.px), Math.round(56 - offset - s.py), s.w, s.h);
       }
       ctx.filter = "none";
     }
@@ -160,8 +164,8 @@ export function initCustomization({ onOpen, onClose }) {
       previousFocus = document.activeElement;
       draft = structuredClone(settings); capture = null;
       document.getElementById("character-notice").textContent = inGame
-        ? "Character changes apply to your next run. Keyboard changes apply when you resume."
-        : "Same abilities. Different look. Pick a fighter for each player.";
+        ? "Characters change next run. Keys change on resume."
+        : "Choose your fighter";
       onOpen(); renderControls(); renderRoster(); selectTab(tab);
       dialog.showModal(); draw(0);
       tabs.find((button) => button.dataset.tab === tab).focus();
