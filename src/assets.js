@@ -2,19 +2,45 @@
 
 const BASE = "assets/";
 
-function loadImage(src) {
+/**
+ * fetch() with retries. Simple static servers (python -m http.server has a listen backlog
+ * of 5) reset connections when the page requests every asset at once.
+ */
+export async function fetchRetry(url, tries = 4) {
+  for (let i = 0; ; i++) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return res;
+      throw new Error(`HTTP ${res.status} for ${url}`);
+    } catch (e) {
+      if (i >= tries - 1) throw e;
+      await new Promise((r) => setTimeout(r, 150 * (i + 1)));
+    }
+  }
+}
+
+/** Run async jobs with at most `limit` in flight. */
+export async function pooled(items, limit, job) {
+  const queue = [...items];
+  const workers = Array.from({ length: Math.min(limit, queue.length) }, async () => {
+    while (queue.length) await job(queue.shift());
+  });
+  await Promise.all(workers);
+}
+
+async function loadImage(src) {
+  const blob = await (await fetchRetry(src)).blob();
+  const url = URL.createObjectURL(blob);
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`failed to load ${src}`));
-    img.src = src;
+    img.onerror = () => reject(new Error(`failed to decode ${src}`));
+    img.src = url;
   });
 }
 
 async function loadJSON(name) {
-  const res = await fetch(BASE + name);
-  if (!res.ok) throw new Error(`failed to load ${name}`);
-  return res.json();
+  return (await fetchRetry(BASE + name)).json();
 }
 
 export const assets = {
@@ -33,9 +59,9 @@ export async function loadAssets() {
   ]);
   Object.assign(assets, { sprites, level, prefabs, anims, audio });
   const files = new Set(Object.values(sprites).filter((s) => s && s.tex).map((s) => s.tex));
-  await Promise.all([...files].map(async (f) => {
+  await pooled([...files], 4, async (f) => {
     assets.images[f] = await loadImage(BASE + "img/" + encodeURIComponent(f));
-  }));
+  });
   return assets;
 }
 

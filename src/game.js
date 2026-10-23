@@ -3,7 +3,7 @@
 
 import { assets, comp } from "./assets.js";
 import { camera, clear, drawSprite, strokeBox, text, HALF_W, VIEW_W, VIEW_H, fillRectScreen } from "./render.js";
-import { ledges, water, LAYER } from "./world.js";
+import { buildWorld, ledges, water, LAYER } from "./world.js";
 import { resolveDamage } from "./combat.js";
 import { playSfx, playMusic, stopMusic } from "./audio.js";
 import { Player, State } from "./player.js";
@@ -21,6 +21,7 @@ const CAMERA_MIN_X = -2, CAMERA_MAX_X = 190;
 
 export class Game {
   constructor(inputs, playerCount) {
+    buildWorld(); // fresh ledges each run: bridges add/remove their own part colliders
     this.time = 0;
     this.dt = 0.02;
     this.entities = [];

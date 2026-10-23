@@ -1,7 +1,7 @@
 // WebAudio playback of the extracted clips. Mirrors SoundManager: one music source
 // ("Background" AudioSource) plus one-shot SFX by clip name.
 
-import { assets } from "./assets.js";
+import { assets, fetchRetry, pooled } from "./assets.js";
 
 let ctx = null;
 let master = null;
@@ -15,12 +15,12 @@ export async function initAudio() {
   master = ctx.createGain();
   master.gain.value = 0.5;
   master.connect(ctx.destination);
-  await Promise.all(Object.entries(assets.audio).map(async ([name, file]) => {
+  await pooled(Object.entries(assets.audio), 3, async ([name, file]) => {
     try {
-      const res = await fetch("assets/audio/" + encodeURIComponent(file));
+      const res = await fetchRetry("assets/audio/" + encodeURIComponent(file));
       buffers[name] = await ctx.decodeAudioData(await res.arrayBuffer());
     } catch (e) { console.warn("audio", name, e); }
-  }));
+  });
 }
 
 /** Browsers only allow audio after a user gesture; call from a key/click handler. */

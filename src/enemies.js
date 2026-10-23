@@ -79,10 +79,13 @@ class Enemy {
       this.maxBullets = es.maxBullets;
       this.bullets = this.maxBullets;
       this.reloadTime = 0;
+      // Extracted world positions already include the root's scale.x mirror; store
+      // facing-right offsets so callers can mirror by the current facing.
+      const mirror = Math.sign(node.sx) || 1;
       this.points = {};
       for (const p of sh.children) {
         const sp = comp(p, "ShootPoint");
-        if (sp) this.points[sp.fields.direction] = [p.x - node.x, p.y - node.y];
+        if (sp) this.points[sp.fields.direction] = [(p.x - node.x) * mirror, p.y - node.y];
       }
     }
     this.lastTargetUpdate = 0;

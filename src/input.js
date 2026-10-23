@@ -65,13 +65,17 @@ export function consumePress(code) {
   return false;
 }
 
+let padStartHeld = false;
+
 export function startPressed() {
   let pad = false;
   for (const p of (navigator.getGamepads ? navigator.getGamepads() : [])) {
     if (p && p.buttons[9] && p.buttons[9].pressed) pad = true;
   }
+  const padDown = pad && !padStartHeld; // edge-triggered like keyboard presses
+  padStartHeld = pad;
   const k = consumePress("Enter") || consumePress("Escape");
-  return k || pad;
+  return k || padDown;
 }
 
 export function endFrame() { pressedThisFrame.clear(); }

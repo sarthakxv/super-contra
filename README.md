@@ -6,10 +6,13 @@ NES Contra stage 1 with Mirror online co-op, by Amr Zewail). No build step, no d
 ## Run
 
 ```bash
-python3 -m http.server 8737 --bind 127.0.0.1 --directory "/Users/sarthak/Downloads/Contra Multiplayer/web"
+python3 "/Users/sarthak/Downloads/Contra Multiplayer/web/tools/serve.py"
 ```
 
-Then open http://127.0.0.1:8737 (it must be served over HTTP; `file://` blocks the JSON/audio fetches).
+Then open http://127.0.0.1:8737. It must be served over HTTP, because `file://` blocks the JSON and
+audio fetches. `tools/serve.py` is a small no-cache static server. Plain `python -m http.server`
+also works, but it can drop connections during the initial asset burst and serve stale modules
+after edits.
 
 | | Player 1 | Player 2 |
 |---|---|---|

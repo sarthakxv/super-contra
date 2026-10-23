@@ -1,6 +1,5 @@
 import { loadAssets } from "./assets.js";
 import { initRender, clear, text, fillRectScreen, VIEW_W, VIEW_H, getCtx } from "./render.js";
-import { buildWorld } from "./world.js";
 import { PlayerInput, consumePress, startPressed, endFrame } from "./input.js";
 import { initAudio, resumeAudio, toggleMute, playMusic, stopMusic } from "./audio.js";
 import { assets } from "./assets.js";
@@ -77,7 +76,6 @@ async function boot() {
   const canvas = document.getElementById("screen");
   initRender(canvas);
   await loadAssets();
-  buildWorld();
   initAudio().catch((e) => console.warn("audio init", e));
   canvas.focus();
   let acc = 0, last = performance.now();
