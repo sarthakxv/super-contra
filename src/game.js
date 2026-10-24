@@ -169,7 +169,6 @@ export class Game {
   }
 
   drawHud() {
-    fillRectScreen(0, 0, VIEW_W, 28, "rgba(0,0,0,0.7)");
     text(`SCORE ${formatScore(this.score.total)}`, 4, 3);
     if (highScore.bestScore > 0) text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W - 4, 3, "#ffcf61", "right");
     // UI.PlayerHealth: one medal per remaining respawn, below the score.
