@@ -59,7 +59,7 @@ function drawTitle() {
     fillRectScreen(52, 150, 78, 12, "#000");
   }
   fillRectScreen(0, 0, VIEW_W, 16, "#000");
-  text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W / 2, 4, "#ffcf61", "center");
+  if (highScore.bestScore > 0) text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W / 2, 4, "#ffcf61", "center");
   fillRectScreen(0, VIEW_H - 16, VIEW_W, 16, "#000");
   text(`ENTER / ${keyLabel(settings.bindings[0].b)} to start`, VIEW_W / 2, VIEW_H - 12, "#888", "center");
 }

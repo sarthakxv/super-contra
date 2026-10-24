@@ -171,7 +171,7 @@ export class Game {
   drawHud() {
     fillRectScreen(0, 0, VIEW_W, 28, "rgba(0,0,0,0.7)");
     text(`SCORE ${formatScore(this.score.total)}`, 4, 3);
-    text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W - 4, 3, "#ffcf61", "right");
+    if (highScore.bestScore > 0) text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W - 4, 3, "#ffcf61", "right");
     // UI.PlayerHealth: one medal per remaining respawn, below the score.
     this.players.forEach((p, i) => {
       const lives = p.state === State.Spectate ? 0 : p.lives;
@@ -186,8 +186,10 @@ export class Game {
       text(this.result === "victory" ? "VICTORY" : "DEFEAT", VIEW_W / 2, 12,
         this.result === "victory" ? "#fffb00" : "#ff000e", "center", 16);
       text(`SCORE ${formatScore(this.score.total)}`, VIEW_W / 2, 35, "#fff", "center", 12);
-      text(this.score.newBest ? "NEW BEST" : `HI ${formatScore(highScore.bestScore)}`,
-        VIEW_W / 2, 51, "#ffcf61", "center");
+      if (highScore.bestScore > 0) {
+        text(this.score.newBest ? "NEW BEST" : `HI ${formatScore(highScore.bestScore)}`,
+          VIEW_W / 2, 51, "#ffcf61", "center");
+      }
       Object.entries(this.score.breakdown).forEach(([category, points], i) => {
         text(category.toUpperCase(), 48, 68 + i * 12, "#bbb");
         text(formatScore(points), VIEW_W - 48, 68 + i * 12, "#fff", "right");
