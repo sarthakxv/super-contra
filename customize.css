@@ -14,7 +14,7 @@ button:disabled { opacity: .4; cursor: wait; }
   font: 12px/1.5 "Contra Setup", monospace; text-transform: uppercase; position: relative; }
 .game-actions button::before { content: ">"; position: absolute; left: 8px; color: var(--setup-amber); }
 .game-actions button:hover, .game-actions button:focus-visible { color: var(--setup-amber); }
-#settings-feedback { font: 12px/1.5 "Contra Setup", monospace; color: var(--setup-amber); margin: 0 16px; text-align: center; max-width: 640px; text-transform: uppercase; }
+#settings-feedback, #score-feedback { font: 12px/1.5 "Contra Setup", monospace; color: var(--setup-amber); margin: 0 16px; text-align: center; max-width: 640px; text-transform: uppercase; }
 #customize { box-sizing: border-box; width: min(800px, calc(100vw - 32px)); max-height: calc(100dvh - 32px);
   margin: auto; padding: 32px 32px 0; border: 0; color: var(--setup-white); background: #000;
   font: 16px/1.5 "Contra Setup", monospace; font-synthesis: none; text-transform: uppercase; overflow-y: auto;

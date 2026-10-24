@@ -68,7 +68,8 @@ class Enemy {
     this.order = comp(r, "SpriteRenderer")?.fields.m_SortingOrder ?? 0;
 
     const hb = child(node, "Hitbox");
-    if (hb) this.hitbox = game.addHitbox(new Hitbox(this, boxOf(hb), comp(hb, "Hitbox").fields._supportedTypes));
+    if (hb) this.hitbox = game.addHitbox(new Hitbox(this, boxOf(hb), comp(hb, "Hitbox").fields._supportedTypes,
+      (damage) => { this.hitByPlayer = damage.type === DamageType.Player; }));
     const dmg = child(node, "Damage");
     if (dmg) this.damage = game.addDamage(new Damage(this, boxOf(dmg), comp(dmg, "Damage").fields.damageType));
 
@@ -132,6 +133,7 @@ class Enemy {
     if (!n) return false;
     this.game.sfx(hitSfx);
     this.health -= n / this.game.players.length;
+    if (this.health <= 0 && this.hitByPlayer) this.game.score.kill(this, this.scoreKind);
     return this.health <= 0;
   }
 
@@ -170,6 +172,7 @@ class GroundEnemy extends Enemy {
 export class Soldier extends GroundEnemy {
   constructor(game, node) {
     super(game, node);
+    this.scoreKind = "rifle";
     const f = comp(node, "Soldier").fields;
     this.attackRange = f.attackRange;
     this.flip = f.lookDirection === 1;
@@ -234,6 +237,7 @@ export class Soldier extends GroundEnemy {
 export class SoldierHiding extends GroundEnemy {
   constructor(game, node) {
     super(game, node);
+    this.scoreKind = "hiding";
     const f = comp(node, "SoldierHiding").fields;
     this.attackRange = f.attackRange;
     this.hidingTime = f.hidingTime;
@@ -308,6 +312,7 @@ export class SoldierHiding extends GroundEnemy {
 export class Thief extends GroundEnemy {
   constructor(game, node) {
     super(game, node);
+    this.scoreKind = "runner";
     const f = comp(node, "Thief").fields;
     this.moveRange = f.moveRange;
     this.flip = f.lookDirection === 1;
@@ -383,6 +388,7 @@ const TURRET_DIRS = ["Up", "RightHigh", "RightMidHigh", "Right", "RightMidLow", 
 export class Turret extends Enemy {
   constructor(game, node) {
     super(game, node);
+    this.scoreKind = "turret";
     const f = comp(node, "Turret").fields;
     this.health = f.health;
     this.attackRange = f.attackRange;
@@ -464,6 +470,7 @@ const GT_ANGLES = [120, 150, 180];
 export class GroundTurret extends Enemy {
   constructor(game, node) {
     super(game, node);
+    this.scoreKind = "turret";
     const f = comp(node, "GroundTurret").fields;
     this.health = f.health;
     this.attackRange = f.attackRange;

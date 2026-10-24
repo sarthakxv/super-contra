@@ -27,6 +27,30 @@ abilities. Save applies keyboard changes immediately; character changes apply to
 next run. Choices are remembered in this browser. Restore defaults resets the current
 tab; Cancel discards unsaved changes. Gamepad mappings stay fixed.
 
+## Scoring
+
+Each new 1% of forward progress earns 50 points, up to 5,000. Backtracking and
+respawning never repeat progress points; winning completes any remaining progress.
+Rifle soldiers earn 100 points, hiding rifle soldiers 200, and either turret 500.
+Unarmed runners always earn **zero**, including endlessly spawned reinforcements.
+Each boss gun destroyed directly earns 1,000; the core earns 5,000. Guns destroyed
+automatically with the core do not count.
+
+Victory adds a survival bonus of 3,000 / 2,000 / 1,000 for zero / one / two deaths.
+The speed bonus is 2,000 for finishing within 120 seconds, then decreases by 20 per
+additional whole second, reaching zero at 220 seconds. Pausing, customization,
+loading, and result screens do not count toward gameplay time. Death keeps earned
+points; defeat gives no survival or speed bonus. Points do not grant extra lives.
+
+The HUD shows SCORE and HI; results show the breakdown, enemy kills (including
+zero-point runners, excluding boss parts), deaths, and gameplay time. Personal bests
+save immediately, even during losing runs, in this site's browser storage under
+`contra.highscore.v1`. All characters share one record. Clearing site data removes
+it; unavailable storage keeps the best for the current session only. Future scoring
+rules use a new storage key so incompatible records are not compared.
+
+Run the regression tests with `node --test tests/*.test.mjs`.
+
 ## How it was ported for browser
 
 - `tools/extract.py` reads `Contra_Data` with UnityPy. The build's typetrees are stripped, so the

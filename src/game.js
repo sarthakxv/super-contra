@@ -10,6 +10,7 @@ import { Player, State } from "./player.js";
 import { Soldier, SoldierHiding, Thief, Turret, GroundTurret, Prop } from "./enemies.js";
 import { Bridge, FalconBox, Scroll, ObjectEnabler, EnemySpawner, FallDamage } from "./objects.js";
 import { SuperMachine } from "./boss.js";
+import { RunScore, highScore, formatScore, formatTime } from "./score.js";
 
 const SCENE_TYPES = { Soldier, SoldierHiding, Thief, Turret, GroundTurret, SuperMachine,
   Bridge, FalconBox, EnemySpawner };
@@ -50,6 +51,8 @@ export class Game {
       this.players.push(this.add(new Player(this, i, inputs[i], spawn.x + i * 1.5, spawn.y)));
     }
     this.buildLevel();
+    const player = this.players[0];
+    this.score = new RunScore(spawn.x, this.wallX - player.body.box.w / 2, player.maxLives + 1);
     playMusic("03 Stage 1 - Jungle % Stage 7 - Hangar");
   }
 
@@ -136,6 +139,7 @@ export class Game {
 
   finish(result) {
     if (this.result) return;
+    this.score.finish(result, this.time);
     this.result = result;
     this.resultTime = this.time;
     stopMusic();
@@ -165,20 +169,32 @@ export class Game {
   }
 
   drawHud() {
-    // UI.PlayerHealth: one medal per remaining life, top-left.
+    fillRectScreen(0, 0, VIEW_W, 28, "rgba(0,0,0,0.7)");
+    text(`SCORE ${formatScore(this.score.total)}`, 4, 3);
+    text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W - 4, 3, "#ffcf61", "right");
+    // UI.PlayerHealth: one medal per remaining respawn, below the score.
     this.players.forEach((p, i) => {
       const lives = p.state === State.Spectate ? 0 : p.lives;
-      text(`${i + 1}P`, 4 + i * 128, 4, i ? "#7cf" : "#f77");
+      text(`${i + 1}P`, 4 + i * 128, 16, i ? "#7cf" : "#f77");
       for (let k = 0; k < Math.min(lives, 6); k++) {
-        fillRectScreen(20 + i * 128 + k * 8, 5, 5, 8, "#3af");
-        fillRectScreen(21 + i * 128 + k * 8, 6, 3, 3, "#fff");
+        fillRectScreen(20 + i * 128 + k * 8, 17, 5, 8, "#3af");
+        fillRectScreen(21 + i * 128 + k * 8, 18, 3, 3, "#fff");
       }
     });
     if (this.result) {
       fillRectScreen(0, 0, VIEW_W, VIEW_H, "rgba(0,0,0,0.82)");
-      text(this.result === "victory" ? "VICTORY" : "DEFEAT", VIEW_W / 2, VIEW_H / 2 - 8,
+      text(this.result === "victory" ? "VICTORY" : "DEFEAT", VIEW_W / 2, 12,
         this.result === "victory" ? "#fffb00" : "#ff000e", "center", 16);
-      if (this.time - this.resultTime > 2) text("press ENTER", VIEW_W / 2, VIEW_H / 2 + 14, "#aaa", "center");
+      text(`SCORE ${formatScore(this.score.total)}`, VIEW_W / 2, 35, "#fff", "center", 12);
+      text(this.score.newBest ? "NEW BEST" : `HI ${formatScore(highScore.bestScore)}`,
+        VIEW_W / 2, 51, "#ffcf61", "center");
+      Object.entries(this.score.breakdown).forEach(([category, points], i) => {
+        text(category.toUpperCase(), 48, 68 + i * 12, "#bbb");
+        text(formatScore(points), VIEW_W - 48, 68 + i * 12, "#fff", "right");
+      });
+      text(`KILLS ${this.score.kills}  DEATHS ${this.score.deaths}`, VIEW_W / 2, 135, "#bbb", "center");
+      text(`TIME ${formatTime(this.score.elapsed)}`, VIEW_W / 2, 147, "#bbb", "center");
+      if (this.time - this.resultTime > 2) text("press ENTER", VIEW_W / 2, 173, "#aaa", "center");
     }
   }
 

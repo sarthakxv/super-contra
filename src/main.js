@@ -7,6 +7,7 @@ import { Game } from "./game.js";
 import { settings, keyLabel } from "./settings.js";
 import { loadCharacters } from "./characters.js";
 import { initCustomization } from "./customize.js";
+import { highScore, formatScore } from "./score.js";
 
 const STEP = 0.02; // Unity Fixed Timestep
 
@@ -57,6 +58,8 @@ function drawTitle() {
     // Single player for now: mask the original "2 PLAYERS" row (co-op returns with online play).
     fillRectScreen(52, 150, 78, 12, "#000");
   }
+  fillRectScreen(0, 0, VIEW_W, 16, "#000");
+  text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W / 2, 4, "#ffcf61", "center");
   fillRectScreen(0, VIEW_H - 16, VIEW_W, 16, "#000");
   text(`ENTER / ${keyLabel(settings.bindings[0].b)} to start`, VIEW_W / 2, VIEW_H - 12, "#888", "center");
 }
@@ -82,6 +85,8 @@ function update() {
 }
 
 function draw() {
+  const scoreFeedback = document.getElementById("score-feedback");
+  if (scoreFeedback.hidden !== highScore.persisted) scoreFeedback.hidden = highScore.persisted;
   if (scene === "title") drawTitle();
   else {
     game.draw();

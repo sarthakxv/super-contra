@@ -71,7 +71,8 @@ class Part {
     this.flip = false;
     this.anim = new Animator(controllerByRef(comp(node, "Animator2D").fields._controller.ref));
     this.order = comp(node, "SpriteRenderer").fields.m_SortingOrder;
-    this.hitbox = boss.game.addHitbox(new Hitbox(this, boxOf(hitNode), comp(hitNode, "Hitbox").fields._supportedTypes));
+    this.hitbox = boss.game.addHitbox(new Hitbox(this, boxOf(hitNode), comp(hitNode, "Hitbox").fields._supportedTypes,
+      (damage) => { this.hitByPlayer = damage.type === DamageType.Player; }));
     this.health = health;
     this.state = "Idle";
     const pt = node.children.find((c) => comp(c, "ShootPoint"));
@@ -120,10 +121,11 @@ export class SuperMachine {
 
   hitPart(part) {
     const n = part.hitbox.consume();
-    if (!n || part.health <= 0) return;
+    if (!n || part.health <= 0 || part.state === "Destroyed") return;
     this.game.sfx(SFX.EnemyHit);
     part.health -= n / this.game.players.length;
     if (part.health > 0) return;
+    if (part.hitByPlayer) this.game.score.kill(part, part === this.core ? "bossCore" : "bossGun");
     if (part === this.core) {
       this.game.sfx(SFX.BossDefeat);
       this.die(this.core);

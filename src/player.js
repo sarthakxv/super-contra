@@ -225,6 +225,7 @@ export class Player {
     }
 
     if (this.hitbox.consume() > 0 && this.state !== State.Dead && this.state !== State.Spectate) {
+      this.game.score.recordDeath();
       this.state = State.Dead;
       this.deadTime = t;
       this.body.vx = this.body.vy = 0;
@@ -315,6 +316,7 @@ export class Player {
     this.body.step(dt);
     // Keep the player inside the camera's horizontal bounds (screen edges are walls in Contra).
     this.game.clampToView(this);
+    if (this.state !== State.Dead && this.state !== State.Spectate) this.game.score.advance(this.x);
     this.bodyAnim.update(dt);
     this.legsAnim.update(dt);
     if (this.y < camera.y - HALF_H - 4 && this.state !== State.Dead && this.state !== State.Spectate) {
