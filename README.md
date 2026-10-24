@@ -5,7 +5,7 @@ A JavaScript/Canvas port of Contra's Windows Unity build (Unity 2021.2 remake of
 ## Run locally
 
 ```bash
-python3 serve.py
+python3 tools/serve.py
 ```
 
 Open http://127.0.0.1:8737. Serve it over HTTP, because `file://` blocks the JSON and audio
@@ -20,6 +20,18 @@ but it can drop connections during the initial asset burst and serve stale modul
 
 The first gamepad also works (south = jump, east/west = fire). Enter or Esc starts and pauses,
 F2 toggles the collider overlay, and M mutes. Prone + jump drops through ledges.
+
+Phones and tablets show touch controls automatically. Play in landscape: drag the left
+stick to move/aim/duck, hold **Fire** to shoot, and tap **Jump**. Movement, shooting, and
+jumping work together. **Start / Pause / Resume** is at the top right; customization
+stays available on the title screen and while paused. Turning to portrait or switching
+away from the browser pauses a run; tap Resume after returning.
+
+Starting requests fullscreen and a landscape orientation lock where the browser permits
+it. Browsers that cannot lock orientation show a rotate prompt in portrait; turn the
+device sideways. No installation is required. The game fits the visible browser height,
+including browser bars and safe areas. To test from a phone on the same Wi-Fi, serve with
+`python3 -m http.server 8737 --bind 0.0.0.0` and open the computer's LAN IP on port 8737.
 
 Open **Customize** on the title screen or while paused to rebind the keyboard controls and
 choose Commando, Viper, Ember, or Ghost. All characters share the same

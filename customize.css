@@ -13,7 +13,7 @@ button:disabled { opacity: .4; cursor: wait; }
 .game-actions button { padding: 8px 16px 8px 32px; border: 0; background: #000; color: var(--setup-white);
   font: 12px/1.5 "Contra Setup", monospace; text-transform: uppercase; position: relative; }
 .game-actions button::before { content: ">"; position: absolute; left: 8px; color: var(--setup-amber); }
-.game-actions button:hover, .game-actions button:focus-visible { color: var(--setup-amber); }
+.game-actions button:focus-visible { color: var(--setup-amber); }
 #settings-feedback, #score-feedback { font: 12px/1.5 "Contra Setup", monospace; color: var(--setup-amber); margin: 0 16px; text-align: center; max-width: 640px; text-transform: uppercase; }
 #customize { box-sizing: border-box; width: min(800px, calc(100vw - 32px)); max-height: calc(100dvh - 32px);
   margin: auto; padding: 32px 32px 0; border: 0; color: var(--setup-white); background: #000;
@@ -34,8 +34,7 @@ button:disabled { opacity: .4; cursor: wait; }
 .customize-tabs button { position: relative; padding: 8px 0 8px 24px; line-height: 24px; }
 .customize-tabs button::before { content: ">"; position: absolute; left: 0; visibility: hidden; }
 #customize .customize-tabs button[aria-selected="true"] { color: var(--setup-amber); }
-.customize-tabs button[aria-selected="true"]::before, .customize-tabs button:hover::before, .customize-tabs button:focus-visible::before { visibility: visible; }
-.customize-tabs button:hover { color: var(--setup-amber); }
+.customize-tabs button[aria-selected="true"]::before, .customize-tabs button:focus-visible::before { visibility: visible; }
 .customize-content { padding: 0 16px; }
 .panel-description { margin: 0 0 24px; color: var(--setup-gray); font-size: 12px; line-height: 24px; text-align: center; }
 .binding-heading, .binding-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) 192px; align-items: center; column-gap: 24px; }
@@ -46,7 +45,7 @@ button:disabled { opacity: .4; cursor: wait; }
 .binding-row:nth-last-child(-n+2) > :nth-child(2) { color: var(--setup-amber); }
 #customize .key-binding { justify-self: end; max-width: 100%; position: relative; padding: 8px 0; color: var(--setup-amber); text-align: right; line-height: 24px; overflow-wrap: anywhere; }
 .key-binding::before { content: ">"; position: absolute; left: -16px; visibility: hidden; }
-.key-binding:hover::before, .key-binding:focus-visible::before, .key-binding[aria-pressed="true"]::before { visibility: visible; }
+.key-binding:focus-visible::before, .key-binding[aria-pressed="true"]::before { visibility: visible; }
 #customize .key-binding[aria-pressed="true"] { color: var(--setup-white); }
 .reserved-keys { margin-top: 24px; color: var(--setup-gray); font-size: 12px; line-height: 24px; }
 .reserved-keys p { margin: 0; }
@@ -57,8 +56,8 @@ button:disabled { opacity: .4; cursor: wait; }
 .character-card canvas { width: 128px; height: 128px; max-width: 100%; object-fit: contain; image-rendering: pixelated; background: #000; }
 .character-card strong { position: relative; font-size: 16px; font-weight: 400; line-height: 24px; margin: 8px 0; }
 .character-card strong::before { content: ">"; position: absolute; left: -20px; color: var(--setup-amber); visibility: hidden; }
-.character-card[aria-pressed="true"] strong::before, .character-card:hover strong::before, .character-card:focus-visible strong::before { visibility: visible; }
-.character-card[aria-pressed="true"] strong, .character-card:hover strong, .character-card:focus-visible strong { color: var(--setup-amber); }
+.character-card[aria-pressed="true"] strong::before, .character-card:focus-visible strong::before { visibility: visible; }
+.character-card[aria-pressed="true"] strong, .character-card:focus-visible strong { color: var(--setup-amber); }
 .character-detail { color: var(--setup-gray); font-size: 12px; line-height: 16px; min-height: 48px; }
 .character-selection { color: var(--setup-gray); font-size: 12px; line-height: 16px; margin: 8px 0 0; }
 .character-card[aria-pressed="true"] .character-selection { color: var(--setup-white); }
@@ -69,11 +68,16 @@ button:disabled { opacity: .4; cursor: wait; }
   padding: 16px 16px 24px; background: #000; font-size: 12px; line-height: 24px; }
 .customize-footer button { padding: 8px 0 8px 24px; position: relative; }
 .customize-footer button::before { content: ">"; position: absolute; left: 0; color: var(--setup-amber); visibility: hidden; }
-.customize-footer button:hover::before, .customize-footer button:focus-visible::before, #customize-save::before { visibility: visible; }
-#customize .customize-footer button:hover { color: var(--setup-amber); }
+.customize-footer button:focus-visible::before, #customize-save::before { visibility: visible; }
 #customize #customize-reset { margin-right: auto; color: var(--setup-gray); }
 #customize #customize-save { color: var(--setup-amber); }
 .crt-boot .game-actions { visibility: hidden; }
+@media (hover: hover) and (pointer: fine) {
+  .game-actions button:hover, .customize-tabs button:hover,
+  .character-card:hover strong, #customize .customize-footer button:hover { color: var(--setup-amber); }
+  .customize-tabs button:hover::before, .key-binding:hover::before,
+  .character-card:hover strong::before, .customize-footer button:hover::before { visibility: visible; }
+}
 @media (max-width: 640px) {
   #customize { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); padding: 24px 16px 0; font-size: 12px; }
   .customize-heading { gap: 8px; } #customize h1 { font-size: 16px; }

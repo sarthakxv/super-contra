@@ -16,12 +16,18 @@ let ctx = null;
 export function initRender(canvas) {
   ctx = canvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
+  const touch = matchMedia("(any-pointer: coarse)");
   const fit = () => {
+    if (touch.matches) {
+      canvas.style.width = canvas.style.height = ""; // Mobile sizing follows the dynamic viewport in touch.css.
+      return;
+    }
     const scale = Math.max(1, Math.floor(Math.min((innerWidth - 24) / VIEW_W, (innerHeight - 140) / VIEW_H)));
     canvas.style.width = VIEW_W * scale + "px";
     canvas.style.height = VIEW_H * scale + "px";
   };
   addEventListener("resize", fit);
+  touch.addEventListener("change", fit);
   fit();
   return ctx;
 }

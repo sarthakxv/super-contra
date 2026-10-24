@@ -1,0 +1,66 @@
+#touch-controls, #rotate-prompt { display: none; }
+
+@media (any-pointer: coarse) {
+  html { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+  html body { box-sizing: border-box; height: 100dvh; overflow: hidden; gap: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    overscroll-behavior: none; }
+  body #crt { display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; }
+  #screen { width: min(100%, calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 4 / 3));
+    height: auto; aspect-ratio: 4 / 3; max-height: 100%; touch-action: none; }
+  #help { display: none; }
+  button, #touch-stick { -webkit-tap-highlight-color: transparent; -webkit-user-select: none;
+    user-select: none; -webkit-touch-callout: none; }
+  .game-actions { position: fixed; z-index: 3; top: calc(env(safe-area-inset-top) + 8px); left: 50%;
+    transform: translateX(-50%); gap: 4px; }
+  .game-actions button { min-height: 44px; padding: 8px 12px 8px 24px; font-size: 10px; background: #000a; }
+  #settings-feedback, #score-feedback { position: fixed; z-index: 4; top: calc(env(safe-area-inset-top) + 58px);
+    left: 50%; transform: translateX(-50%); width: min(80%, 560px); margin: 0; background: #000d; font-size: 10px; }
+  #touch-controls { display: block; position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    --stick-size: clamp(104px, 34dvh, 176px); --action-size: clamp(64px, 22dvh, 112px); }
+  .touch-toolbar { position: absolute; top: calc(env(safe-area-inset-top) + 8px);
+    right: calc(env(safe-area-inset-right) + 12px); display: flex; gap: 6px; }
+  .touch-toolbar button, #rotate-landscape { pointer-events: auto; min-width: 44px; min-height: 44px;
+    border: 1px solid #ffffff30; border-radius: 8px; background: #171717b8; color: #eee; padding: 8px 12px; }
+  .touch-toolbar button:active, #rotate-landscape:active { background: #ffffff30; }
+  #touch-stick { position: absolute; bottom: calc(env(safe-area-inset-bottom) + 18px);
+    left: calc(env(safe-area-inset-left) + 20px); width: var(--stick-size); height: var(--stick-size);
+    border-radius: 50%; border: 1px solid #ffffff30; background: #24242455; box-shadow: inset 0 0 0 5px #ffffff03;
+    pointer-events: auto; touch-action: none; }
+  #touch-stick::before { content: ""; position: absolute; inset: 18%; border: 1px solid #ffffff24; border-radius: 50%; }
+  .stick-thumb { position: absolute; inset: 33%; border-radius: 50%;
+    background: linear-gradient(#777a, #393939b8); border: 1px solid #ffffff45;
+    box-shadow: inset 0 0 0 3px #ffffff10, 0 2px 8px #0007;
+    transform: translate(var(--stick-x, 0px), var(--stick-y, 0px)); }
+  .stick-arrow { position: absolute; color: #ffffff45; font-size: 12px; line-height: 1; }
+  .stick-arrow.up { top: 7%; left: calc(50% - 6px); }
+  .stick-arrow.down { bottom: 7%; left: calc(50% - 6px); }
+  .stick-arrow.left { left: 7%; top: calc(50% - 6px); }
+  .stick-arrow.right { right: 7%; top: calc(50% - 6px); }
+  #touch-stick.is-held { border-color: #ffffff60; background: #33333366; }
+  .touch-buttons { position: absolute; right: calc(env(safe-area-inset-right) + 20px);
+    bottom: calc(env(safe-area-inset-bottom) + 18px); width: calc(var(--action-size) * 2.05); height: calc(var(--action-size) * 1.8); }
+  .touch-action { position: absolute; display: grid; place-content: center; justify-items: center;
+    width: var(--action-size); height: var(--action-size); padding: 8px; border-radius: 50%;
+    border: 1px solid #ffffff38; color: #efefef; background: #29292966;
+    pointer-events: auto; touch-action: none; }
+  .touch-action svg { width: 54%; height: auto; min-width: 32px; }
+  .touch-action span { font-size: 9px; line-height: 1; text-transform: uppercase; letter-spacing: 1px; opacity: .65; }
+  #touch-fire { left: 0; bottom: 0; box-shadow: inset 0 0 0 4px #0006, inset 0 0 0 5px #ffffff20, 0 0 0 4px #ffffff0a; }
+  #touch-jump { right: 0; top: 0; width: calc(var(--action-size) * .84); height: calc(var(--action-size) * .84); }
+  .touch-action.is-held { background: #ffffff38; border-color: #ffffff80; }
+  .touch-toolbar button:focus-visible, .touch-action:focus-visible, #rotate-landscape:focus-visible { outline: 2px solid #ffcf61; outline-offset: 3px; }
+  #customize { overscroll-behavior: contain; padding-top: 16px; max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px); }
+  #customize button { min-height: 44px; }
+  .customize-tabs { margin: 12px 0; }
+  .crt-boot #touch-controls { visibility: hidden; }
+
+  @media (orientation: portrait) {
+    #rotate-prompt { position: fixed; inset: 0; z-index: 5; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; box-sizing: border-box; padding: 24px; text-align: center; background: #000; }
+    #rotate-prompt svg { width: 80px; height: 80px; color: #8c9494; margin-bottom: 16px; }
+    #rotate-prompt h2 { font: 16px/1.5 "Contra Setup", monospace; color: #ffcf61; text-transform: uppercase; margin: 0 0 12px; }
+    #rotate-prompt p { color: #999; margin: 0 0 24px; }
+    #touch-controls, .game-actions { visibility: hidden; }
+  }
+}

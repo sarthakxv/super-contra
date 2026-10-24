@@ -1,4 +1,4 @@
-// Keyboard + gamepad input mapped onto the original "Main" action map:
+// Keyboard, touch + gamepad input mapped onto the original "Main" action map:
 // Horizontal/Vertical axes, B (fire, Z) and A (jump, X), Start (Esc).
 
 import { settings } from "./settings.js";
@@ -7,10 +7,26 @@ const held = new Set();
 const pressedThisFrame = new Set();
 const players = new Set();
 let suspended = false;
+const touch = { horizontal: 0, vertical: 0, a: false, b: false };
+
+export function setTouchDirection(horizontal, vertical) {
+  if (suspended) return;
+  touch.horizontal = horizontal; touch.vertical = vertical;
+}
+
+export function setTouchButton(action, down) {
+  if (!suspended && (action === "a" || action === "b")) touch[action] = down;
+}
+
+export function pressStart() {
+  if (!suspended) pressedThisFrame.add("Enter");
+}
 
 export function clearInput() {
   held.clear();
   pressedThisFrame.clear();
+  touch.horizontal = touch.vertical = 0;
+  touch.a = touch.b = false;
   for (const player of players) player.reset();
 }
 
@@ -56,6 +72,10 @@ export class PlayerInput {
     let h = (held.has(k.right) ? 1 : 0) - (held.has(k.left) ? 1 : 0);
     let v = (held.has(k.up) ? 1 : 0) - (held.has(k.down) ? 1 : 0);
     let a = held.has(k.a), b = held.has(k.b);
+    if (this.index === 0) {
+      h = touch.horizontal || h; v = touch.vertical || v;
+      a = a || touch.a; b = b || touch.b;
+    }
 
     const pad = navigator.getGamepads ? navigator.getGamepads()[this.index] : null;
     if (pad) {
@@ -78,7 +98,8 @@ export class PlayerInput {
     if (suspended) return false;
     const k = settings.bindings[this.index];
     const pad = navigator.getGamepads ? navigator.getGamepads()[this.index] : null;
-    return Object.values(k).some((c) => held.has(c)) || (pad && pad.buttons.some((b) => b.pressed));
+    return (this.index === 0 && Object.values(touch).some(Boolean)) ||
+      Object.values(k).some((c) => held.has(c)) || (pad && pad.buttons.some((b) => b.pressed));
   }
 }
 

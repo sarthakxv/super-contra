@@ -8,6 +8,7 @@ import { settings, keyLabel } from "./settings.js";
 import { loadCharacters } from "./characters.js";
 import { initCustomization } from "./customize.js";
 import { highScore, formatScore } from "./score.js";
+import { initTouchControls } from "./touch.js";
 
 const STEP = 0.02; // Unity Fixed Timestep
 
@@ -17,10 +18,12 @@ let game = null;
 let paused = false;
 let titleMusicStarted = false;
 let customization = null;
+let touchControls = null;
 
-function refreshActions() {
+function refreshActions(customizing = !!customization?.open) {
   document.getElementById("customize-button").hidden = scene !== "title" && (!paused || !!game?.result);
   document.getElementById("resume-button").hidden = scene !== "game" || !paused || !!game?.result;
+  touchControls?.sync({ scene, paused, result: game?.result, customizing });
 }
 
 function refreshHelp() {
@@ -31,11 +34,13 @@ function refreshHelp() {
   help.append("gamepads supported · Enter/Esc start/pause · F2 colliders · M mute");
 }
 
-addEventListener("keydown", () => {
+function interact() {
   if (customization?.open) return;
   resumeAudio();
   if (!titleMusicStarted && scene === "title") { titleMusicStarted = true; playMusic("01 Title", false); }
-}, { capture: true });
+}
+addEventListener("keydown", interact, { capture: true });
+addEventListener("pointerdown", interact, { capture: true });
 
 function updateTitle() {
   if (startPressed() || consumePress(settings.bindings[0].b) || consumePress(settings.bindings[0].a)) {
@@ -61,11 +66,11 @@ function drawTitle() {
   fillRectScreen(0, 0, VIEW_W, 16, "#000");
   if (highScore.bestScore > 0) text(`HI ${formatScore(highScore.bestScore)}`, VIEW_W / 2, 4, "#ffcf61", "center");
   fillRectScreen(0, VIEW_H - 16, VIEW_W, 16, "#000");
-  text(`ENTER / ${keyLabel(settings.bindings[0].b)} to start`, VIEW_W / 2, VIEW_H - 12, "#888", "center");
+  text(touchControls?.enabled ? "Tap START to play" : `ENTER / ${keyLabel(settings.bindings[0].b)} to start`, VIEW_W / 2, VIEW_H - 12, "#888", "center");
 }
 
 function update() {
-  if (customization?.open) { endFrame(); return; }
+  if (customization?.open || touchControls?.blocked) { endFrame(); return; }
   if (consumePress("F2") && game) game.debug = !game.debug;
   if (consumePress("KeyM")) toggleMute();
   if (scene === "title") updateTitle();
@@ -78,7 +83,10 @@ function update() {
       else game.update(STEP);
     } else {
       if (startPressed()) { paused = !paused; clearInput(); refreshActions(); }
-      if (!paused) game.update(STEP);
+      if (!paused) {
+        game.update(STEP);
+        if (game.result) refreshActions();
+      }
     }
   }
   endFrame();
@@ -113,13 +121,20 @@ async function boot() {
   customization = initCustomization({
     onOpen() {
       if (scene === "game") paused = true;
-      suspendInput(true); refreshActions();
+      suspendInput(true); refreshActions(true);
     },
     onClose({ saved, persisted }) {
       suspendInput(false); refreshActions(); refreshHelp();
       const feedback = document.getElementById("settings-feedback");
       feedback.hidden = !saved || persisted;
       feedback.textContent = saved && !persisted ? "Applied for this session. Browser storage is unavailable; these settings will reset after reload." : "";
+    },
+  });
+  touchControls = initTouchControls({
+    onInteract: interact,
+    onUnavailable() {
+      if (scene === "game" && !game.result) paused = true;
+      refreshActions();
     },
   });
   const customizeButton = document.getElementById("customize-button");

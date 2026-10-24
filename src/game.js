@@ -195,7 +195,7 @@ export class Game {
       });
       text(`KILLS ${this.score.kills}  DEATHS ${this.score.deaths}`, VIEW_W / 2, 135, "#bbb", "center");
       text(`TIME ${formatTime(this.score.elapsed)}`, VIEW_W / 2, 147, "#bbb", "center");
-      if (this.time - this.resultTime > 2) text("press ENTER", VIEW_W / 2, 173, "#aaa", "center");
+      if (this.time - this.resultTime > 2) text(matchMedia("(any-pointer: coarse)").matches ? "tap CONTINUE" : "press ENTER", VIEW_W / 2, 173, "#aaa", "center");
     }
   }
 

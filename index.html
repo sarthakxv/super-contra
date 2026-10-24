@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Super Contra for Browser</title>
 <meta name="description" content="Contra stage 1 in your browser. Keyboard or gamepad, no install.">
 <meta name="application-name" content="Super Contra">
@@ -17,6 +17,7 @@
 <link rel="canonical" href="https://super-contra.pages.dev/">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="stylesheet" href="customize.css">
+<link rel="stylesheet" href="touch.css">
 <link rel="preload" href="assets/ui/contra-setup.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -83,6 +84,7 @@
 <script>
   // Same integer scale as render.js fit(), applied before the modules load so the CRT line doesn't resize mid-warm-up.
   (function (c) {
+    if (matchMedia("(any-pointer: coarse)").matches) return;
     var s = Math.max(1, Math.floor(Math.min((innerWidth - 24) / 256, (innerHeight - 140) / 192)));
     c.style.width = 256 * s + "px";
     c.style.height = 192 * s + "px";
@@ -97,6 +99,37 @@
 <div id="help">
   <b>arrows</b> move · <b>Z</b> fire · <b>X</b> jump &nbsp;|&nbsp;
   gamepads supported · <b>Enter/Esc</b> start/pause · <b>F2</b> colliders · <b>M</b> mute
+</div>
+<div id="touch-controls" aria-label="Touch game controls">
+  <div class="touch-toolbar">
+    <button id="touch-start" type="button" disabled>Start</button>
+    <button id="touch-fullscreen" type="button" hidden aria-label="Enter fullscreen">⛶</button>
+  </div>
+  <div id="touch-play" hidden>
+    <div id="touch-stick" role="group" aria-label="Movement stick: drag to move, aim up, or duck">
+      <span class="stick-arrow up" aria-hidden="true">▲</span>
+      <span class="stick-arrow right" aria-hidden="true">▶</span>
+      <span class="stick-arrow down" aria-hidden="true">▼</span>
+      <span class="stick-arrow left" aria-hidden="true">◀</span>
+      <span class="stick-thumb" aria-hidden="true"></span>
+    </div>
+    <div class="touch-buttons">
+      <button id="touch-fire" class="touch-action" type="button" aria-label="Fire, hold to shoot">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-40 32 32)" fill="currentColor"><path d="M25 18Q25 7 32 3Q39 7 39 18V42H25Z"/><path d="M24 45H40V51H24Z"/><path d="M30 55H34V64H30ZM16 49L22 53L12 59ZM43 53L48 49L53 59Z"/></g></svg>
+        <span>Fire</span>
+      </button>
+      <button id="touch-jump" class="touch-action" type="button" aria-label="Jump">
+        <svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="35" cy="11" r="5" fill="currentColor" stroke="none"/><path d="M33 22L29 36L17 44L25 53M30 35L43 40L46 55M31 24L19 26L12 19M32 24L43 28L52 22"/></svg>
+        <span>Jump</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="rotate-prompt" role="status">
+  <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3"><rect x="25" y="16" width="30" height="48" rx="5" transform="rotate(30 40 40)"/><path d="M13 40A27 27 0 0 1 40 13M13 40L7 32M13 40L20 33M67 40A27 27 0 0 1 40 67M67 40L60 47M67 40L73 48"/></svg>
+  <h2>Rotate to play</h2>
+  <p>Turn your phone or tablet sideways.</p>
+  <button id="rotate-landscape" type="button" hidden>Enter landscape</button>
 </div>
 <dialog id="customize" aria-labelledby="customize-title">
   <header class="customize-heading">
